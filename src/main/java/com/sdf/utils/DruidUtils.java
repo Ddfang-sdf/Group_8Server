@@ -33,7 +33,7 @@ public class DruidUtils {
      * 获取数据源对象
      * @return
      */
-    public DataSource getDs(){
+    public static DataSource getDs(){
         return ds;
     }
 
@@ -42,7 +42,7 @@ public class DruidUtils {
      * @return
      * @throws SQLException
      */
-    public Connection getConnection() throws SQLException {
+    public static Connection getConnection() throws SQLException {
         return ds.getConnection();
     }
 }
