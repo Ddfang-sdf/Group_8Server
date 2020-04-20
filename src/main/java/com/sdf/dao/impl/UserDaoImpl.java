@@ -21,4 +21,14 @@ public class UserDaoImpl implements UserDao {
         }
         return scanner;
     }
+
+    @Override
+    public boolean realAddressUpdate(String real_time_address, Long order_id) {
+        String sql = "UPDATE `order` SET real_time_address = ? WHERE order_id = ?";
+        int check = template.update(sql,real_time_address,order_id);
+        if (check <= 0)
+            return false;
+        return true;
+    }
+
 }

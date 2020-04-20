@@ -17,17 +17,25 @@ import java.util.Map;
  * 测试类，用于测试service层函数
  */
 public class UserServiceTest {
+
+    ScannerService scannerService = new ScannerServiceImpl();
+
+    /**
+     * 业务层扫描员登录功能测试
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     */
     @Test
     public void testScannerLogin() throws InvocationTargetException, IllegalAccessException {
         Scanner scanner_cus = new Scanner();
-        ScannerService service = new ScannerServiceImpl();
+        ScannerService scannerService = new ScannerServiceImpl();
         ResultInfo info = null;
         //servlet 从请求中获取用户名密码，封装为map
         Map<String,String> map = new HashMap<>();
         map.put("s_username","赵校来");
         map.put("s_passwd","123456");
         BeanUtils.populate(scanner_cus,map);
-        Scanner scanner_ser = service.ScannerLogin(scanner_cus);
+        Scanner scanner_ser = scannerService.ScannerLogin(scanner_cus);
         if (scanner_ser != null){
             info = ServletUtils.getInfo(true, scanner_ser, "");
         }else{
@@ -36,4 +44,25 @@ public class UserServiceTest {
         System.out.println(info);
 
     }
+
+    /**
+     * 测试扫描员修改实时地址
+     * 扫描员修改订单实时地址，请求中发送订单号,本次订单号位372036854775808
+     */
+    @Test
+    public void testReal_address_update(){
+        //servlet中获取用户数据
+        Long order_id = 372036854775808l;
+        String real_time_address = "河南省郑州市郑州大学校区仁和宿舍3号楼811室";
+        if (scannerService.realAddressUpdate(real_time_address, order_id)){
+            //修改成功
+            System.out.println("T");
+        }else {
+            //修改失败
+            System.out.println("F");
+        }
+
+    }
+
+
 }

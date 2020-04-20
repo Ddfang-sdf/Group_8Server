@@ -12,4 +12,11 @@ public class ScannerServiceImpl implements ScannerService {
 
         return dao.findForLogin(scanner);
     }
+
+    @Override
+    public boolean realAddressUpdate(String real_time_address, Long order_id) {
+        return dao.realAddressUpdate(real_time_address,order_id);
+    }
+
+
 }
