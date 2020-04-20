@@ -1,14 +1,14 @@
 package com.sdf.domain;
 
 public class User {
-    private int uid;
-    private String username;
-    private String passwd;
-    private String address;
-    private String gender;
-    private int age;
-    private String identify;
-    private String user_phone;
+    private int uid;//用户id
+    private String username;//用户名
+    private String passwd;//用户密码
+    private String address;//用户收货地址
+    private String gender;//用户性别
+    private int age;//用户年龄
+    private String identify;//用户身份证
+    private String user_phone;//用户手机
 
     public User() {
     }
