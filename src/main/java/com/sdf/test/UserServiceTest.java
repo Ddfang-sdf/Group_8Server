@@ -22,6 +22,7 @@ public class UserServiceTest {
 
     /**
      * 业务层扫描员登录功能测试
+     *
      * @throws InvocationTargetException
      * @throws IllegalAccessException
      */
@@ -31,15 +32,15 @@ public class UserServiceTest {
         ScannerService scannerService = new ScannerServiceImpl();
         ResultInfo info = null;
         //servlet 从请求中获取用户名密码，封装为map
-        Map<String,String> map = new HashMap<>();
-        map.put("s_username","赵校来");
-        map.put("s_passwd","123456");
-        BeanUtils.populate(scanner_cus,map);
+        Map<String, String> map = new HashMap<>();
+        map.put("s_username", "赵校来");
+        map.put("s_passwd", "123456");
+        BeanUtils.populate(scanner_cus, map);
         Scanner scanner_ser = scannerService.ScannerLogin(scanner_cus);
-        if (scanner_ser != null){
+        if (scanner_ser != null) {
             info = ServletUtils.getInfo(true, scanner_ser, "");
-        }else{
-            info = ServletUtils.getInfo(false,scanner_ser,"用户名或密码不正确");
+        } else {
+            info = ServletUtils.getInfo(false, scanner_ser, "用户名或密码不正确");
         }
         System.out.println(info);
 
@@ -50,14 +51,14 @@ public class UserServiceTest {
      * 扫描员修改订单实时地址，请求中发送订单号,本次订单号位372036854775808
      */
     @Test
-    public void testReal_address_update(){
+    public void testReal_address_update() {
         //servlet中获取用户数据
         Long order_id = 372036854775808l;
         String real_time_address = "河南省郑州市郑州大学校区仁和宿舍3号楼811室";
-        if (scannerService.realAddressUpdate(real_time_address, order_id)){
+        if (scannerService.realAddressUpdate(real_time_address, order_id)) {
             //修改成功
             System.out.println("T");
-        }else {
+        } else {
             //修改失败
             System.out.println("F");
         }
@@ -76,7 +77,7 @@ public class UserServiceTest {
      * 就先不使用事务了。
      */
     @Test
-    public void testOrder_sign(){
+    public void testOrder_sign() {
         //获取用户数据，
         //订单号
         Long order_id = 372036854775808l;
@@ -85,16 +86,27 @@ public class UserServiceTest {
         //实时地址
         String real_time_address = "河南省郑州市郑州大学校区仁和宿舍3号楼811室";
         //调用业务层快件签收方法
-        if (scannerService.ExpressSignIn(order_id,real_time_address)){
+        if (scannerService.ExpressSignIn(order_id, real_time_address)) {
             //快件签收完成
             System.out.println("快件签收完成");
-        }else {
+        } else {
             System.out.println("出错了！！！");
         }
 
 
-
     }
 
+    /**
+     * 用户注册功能测试
+     * 表单数据如下：
+     * NULL,'李莫愁','123456','河南省开封市金明校区华苑3号楼811室','女',17,'273747596018273645','13588239999'
+     */
+    @Test
+    public void test() {
+        Map<String,String> map = new HashMap<>();
+        map.put("uid","李莫愁");
+        map.put("uid","李莫愁");
+
+    }
 
 }
