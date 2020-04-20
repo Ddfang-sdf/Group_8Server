@@ -1,5 +1,6 @@
 package com.sdf.dao;
 
+import com.sdf.domain.Order;
 import com.sdf.domain.Scanner;
 
 public interface UserDao {
@@ -18,4 +19,16 @@ public interface UserDao {
      * @return
      */
     boolean realAddressUpdate(String real_time_address, Long order_id);
+
+    /**
+     * 修改表order的签收状态，签收日期，实时地址
+     * @param order_id
+     * @param real_time_address
+     * @return
+     */
+    boolean signStatusChange(Long order_id, String real_time_address);
+
+    Order findPhoneByOrderid(Long order_id);
+
+    boolean insertIntoHistory(String user_phone, Long order_id);
 }

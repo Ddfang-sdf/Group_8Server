@@ -64,5 +64,37 @@ public class UserServiceTest {
 
     }
 
+    /**
+     * 测试快件签收业务
+     * #扫描员确认订单签收，修改签收状态、实时地址和签收日期，并且将订单插入历史订单表中
+     * #修改订单表信息
+     * #查询用户手机号
+     * #插入历史订单
+     * JdbcTemplate属于springJdbc的一个类，因为没有深入学习过spring的知识，现在仅仅会增删改查，
+     * 对于开启事务掌握的不好。就先不用了。由于一个线程上可以有多个连接对象，如果不使用jdbcTemplate，
+     * 就要要开启事务必须要使用原生的jdbc，这样会导致多个dao层数据库基本操作冗余在一起。极易出错。这里
+     * 就先不使用事务了。
+     */
+    @Test
+    public void testOrder_sign(){
+        //获取用户数据，
+        //订单号
+        Long order_id = 372036854775808l;
+        // 签收状态
+        String sign_for = "Y";
+        //实时地址
+        String real_time_address = "河南省郑州市郑州大学校区仁和宿舍3号楼811室";
+        //调用业务层快件签收方法
+        if (scannerService.ExpressSignIn(order_id,real_time_address)){
+            //快件签收完成
+            System.out.println("快件签收完成");
+        }else {
+            System.out.println("出错了！！！");
+        }
+
+
+
+    }
+
 
 }

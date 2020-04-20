@@ -22,4 +22,15 @@ public interface ScannerService {
      * @return
      */
     boolean realAddressUpdate(String real_time_address, Long order_id);
+
+    /**
+     * 快件签收业务
+     * 1、根据订单号，修改快件表的签收状态，签收日期，实时地址
+     * 2、根据订单号，查询寄件人用户的手机号吗
+     * 3、向历史订单表插入数据
+     * @return
+     * @param order_id
+     * @param real_time_address
+     */
+    boolean ExpressSignIn(Long order_id, String real_time_address);
 }
