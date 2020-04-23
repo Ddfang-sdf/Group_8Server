@@ -42,7 +42,7 @@ public class ExpressSignInServlet extends HttpServlet {
             resp.getWriter().write(json);
         }else {
             //签收失败
-            info = ServletUtils.getInfo(false,null, MsgHouseUtils.expressSignMsg);
+            info = ServletUtils.getInfo(false,null, MsgHouseUtils.expressSignErrorMsg);
             json = ServletUtils.getJsonInfo(info);
             resp.getWriter().write(json);
         }
