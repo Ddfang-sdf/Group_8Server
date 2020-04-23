@@ -1,5 +1,7 @@
 package com.sdf.test;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sdf.domain.Order;
 import com.sdf.domain.ResultInfo;
 import com.sdf.domain.Scanner;
@@ -25,6 +27,7 @@ import java.util.Map;
  */
 public class UserServiceTest {
 
+    ObjectMapper mapper = new ObjectMapper();
     UserService service = new UserServiceImpl();
 
     /**
@@ -43,7 +46,7 @@ public class UserServiceTest {
         map.put("s_username", "赵校来");
         map.put("s_passwd", "123456");
         BeanUtils.populate(scanner_cus, map);
-        String scanner_ser = scannerService.ScannerLogin(scanner_cus);
+        Scanner scanner_ser = scannerService.ScannerLogin(scanner_cus);
         if (scanner_ser != null) {
             info = ServletUtils.getInfo(true, scanner_ser, "");
         } else {
@@ -133,11 +136,13 @@ public class UserServiceTest {
      * #查询订单 请求中包含---订单号 372036854775807
      */
     @Test
-    public void testFindOrderById() {
+    public void testFindOrderById() throws JsonProcessingException {
         String order_id = "372036854775807";
-        String order = service.findOrderById(order_id);
-        ResultInfo info = ServletUtils.getInfo(true, order, "");
-        System.out.println(info);
+        Order orderById = service.findOrderById(order_id);
+
+        ResultInfo info = ServletUtils.getInfo(true, orderById, "");
+        String s = mapper.writeValueAsString(info);
+        System.out.println(s);
     }
 
     /**
@@ -153,7 +158,7 @@ public class UserServiceTest {
         map.put("username", "李莫愁");
         map.put("passwd", "123456");
         BeanUtils.populate(_user, map);
-        String user = service.userLogin(_user);
+        User user = service.userLogin(_user);
         ResultInfo info = ServletUtils.getInfo(true, user, "");
         System.out.println(info);
     }
@@ -162,11 +167,13 @@ public class UserServiceTest {
      * #查询历史订单 请求中包含---用户的 uid
      */
     @Test
-    public void testFindHistoricalByUid() {
+    public void testFindHistoricalByUid() throws JsonProcessingException {
         String uid = "4";
-        String json = service.findHistoricalByUid(uid);
+        List<Order> json = service.findHistoricalByUid(uid);
         ResultInfo info = ServletUtils.getInfo(true, json, "");
-        System.out.println(info);
+        String s = mapper.writeValueAsString(info);
+
+        System.out.println(s);
     }
     @Test
     public void testSelectAll(){
@@ -179,6 +186,7 @@ public class UserServiceTest {
         List<Order> order_list = template.query(sql, new BeanPropertyRowMapper<Order>(Order.class), "4");
         System.out.println(order_list);
     }
+
 
 
 }

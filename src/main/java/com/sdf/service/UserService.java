@@ -2,8 +2,11 @@ package com.sdf.service;
 
 import com.sdf.dao.UserDao;
 import com.sdf.dao.impl.UserDaoImpl;
+import com.sdf.domain.Order;
 import com.sdf.domain.Scanner;
 import com.sdf.domain.User;
+
+import java.util.List;
 
 public interface UserService {
 
@@ -14,7 +17,7 @@ public interface UserService {
      * @param scanner
      * @return 扫描员对象的json数据
      */
-    String ScannerLogin(Scanner scanner);
+    Scanner ScannerLogin(Scanner scanner);
 
     /**
      * 扫描员更新实时地址业务
@@ -40,7 +43,7 @@ public interface UserService {
      * @return 订单对象的json数据
      * @param order_id
      */
-    String findOrderById(String order_id);
+    Order findOrderById(String order_id);
 
     /**
      * 用户注册
@@ -54,12 +57,12 @@ public interface UserService {
      * @param user
      * @return 用户对象的json数据
      */
-    String userLogin(User user);
+    User userLogin(User user);
 
     /**
      * 查询历史订单
      * @param uid
      * @return
      */
-    String findHistoricalByUid(String uid);
+    List<Order> findHistoricalByUid(String uid);
 }

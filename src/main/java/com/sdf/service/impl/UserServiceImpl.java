@@ -13,18 +13,11 @@ import java.util.List;
 
 public class UserServiceImpl implements UserService {
     UserDao dao = new UserDaoImpl();
-    ObjectMapper mapper = new ObjectMapper();
+
     @Override
-    public String ScannerLogin(Scanner scanner) {
-        Scanner temp_scanner = dao.findForLogin(scanner);
-        String Json = null;
-        try {
-            Json = mapper.writeValueAsString(temp_scanner);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return Json;
-        }
-        return Json;
+    public Scanner ScannerLogin(Scanner scanner) {
+
+        return dao.findForLogin(scanner);
     }
 
     @Override
@@ -52,16 +45,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String findOrderById(String order_id) {
-        Order temp_order = dao.findOrderById(order_id);
-        String Json = null;
-        try {
-            Json = mapper.writeValueAsString(temp_order);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return Json;
-        }
-        return Json;
+    public Order findOrderById(String order_id) {
+
+        return dao.findOrderById(order_id);
     }
 
     @Override
@@ -70,16 +56,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String userLogin(User user) {
-        User temp_user = dao.userLogin(user);
-        String Json = null;
-        try {
-            Json = mapper.writeValueAsString(temp_user);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return Json;
-        }
-        return Json;
+    public User userLogin(User user) {
+
+        return dao.userLogin(user);
     }
 
     /**
@@ -88,15 +67,8 @@ public class UserServiceImpl implements UserService {
      * @return 订单集合的json数据
      */
     @Override
-    public String findHistoricalByUid(String uid) {
-        String Json = null;
-        List<Order> order_list = dao.findHistoricalByUid(uid);
-        try {
-            Json = mapper.writeValueAsString(order_list);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return Json;
-        }
-        return Json;
+    public List<Order> findHistoricalByUid(String uid) {
+
+        return dao.findHistoricalByUid(uid);
     }
 }
