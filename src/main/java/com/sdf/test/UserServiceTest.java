@@ -1,17 +1,23 @@
 package com.sdf.test;
 
+import com.sdf.domain.Order;
 import com.sdf.domain.ResultInfo;
 import com.sdf.domain.Scanner;
 import com.sdf.domain.User;
 import com.sdf.service.UserService;
 import com.sdf.service.impl.UserServiceImpl;
+import com.sdf.utils.DruidUtils;
 import com.sdf.utils.ServletUtils;
 import org.apache.commons.beanutils.BeanUtils;
 import org.junit.Test;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 
+import javax.sql.rowset.JdbcRowSet;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -108,16 +114,16 @@ public class UserServiceTest {
     @Test
     public void test() throws InvocationTargetException, IllegalAccessException {
         User _user = new User();
-        Map<String,String> map = new HashMap<>();
-        map.put("username","李莫愁");
-        map.put("passwd","123456");
-        map.put("address","河南省开封市金明校区华苑3号楼811室");
-        map.put("gender","女");
-        map.put("age","17");
-        map.put("identify","273747596018273645");
-        map.put("user_phone","13588239999");
+        Map<String, String> map = new HashMap<>();
+        map.put("username", "李莫愁");
+        map.put("passwd", "123456");
+        map.put("address", "河南省开封市金明校区华苑3号楼811室");
+        map.put("gender", "女");
+        map.put("age", "17");
+        map.put("identify", "273747596018273645");
+        map.put("user_phone", "13588239999");
         //System.out.println(map);
-        BeanUtils.populate(_user,map);
+        BeanUtils.populate(_user, map);
         boolean user = service.UserRegist(_user);
         System.out.println(user);
 
@@ -127,7 +133,7 @@ public class UserServiceTest {
      * #查询订单 请求中包含---订单号 372036854775807
      */
     @Test
-    public void testFindOrderById(){
+    public void testFindOrderById() {
         String order_id = "372036854775807";
         String order = service.findOrderById(order_id);
         ResultInfo info = ServletUtils.getInfo(true, order, "");
@@ -143,14 +149,35 @@ public class UserServiceTest {
         User _user = new User();
         String username = "李莫愁";
         String passwd = "123456";
-        Map<String,String> map = new HashMap<>();
-        map.put("username","李莫愁");
-        map.put("passwd","123456");
-        BeanUtils.populate(_user,map);
+        Map<String, String> map = new HashMap<>();
+        map.put("username", "李莫愁");
+        map.put("passwd", "123456");
+        BeanUtils.populate(_user, map);
         String user = service.userLogin(_user);
         ResultInfo info = ServletUtils.getInfo(true, user, "");
         System.out.println(info);
+    }
 
+    /**
+     * #查询历史订单 请求中包含---用户的 uid
+     */
+    @Test
+    public void testFindHistoricalByUid() {
+        String uid = "4";
+        String json = service.findHistoricalByUid(uid);
+        ResultInfo info = ServletUtils.getInfo(true, json, "");
+        System.out.println(info);
+    }
+    @Test
+    public void testSelectAll(){
+        JdbcTemplate template = new JdbcTemplate(DruidUtils.getDs());
+        String sql = "SELECT * FROM `order` WHERE `order_id` IN (" +
+                        "SELECT order_id FROM historical_order WHERE user_phone IN(" +
+                            "SELECT user_phone FROM `user` WHERE uid = ?" +
+                        ")" +
+                    ")";
+        List<Order> order_list = template.query(sql, new BeanPropertyRowMapper<Order>(Order.class), "4");
+        System.out.println(order_list);
     }
 
 

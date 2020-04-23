@@ -55,4 +55,11 @@ public interface UserService {
      * @return 用户对象的json数据
      */
     String userLogin(User user);
+
+    /**
+     * 查询历史订单
+     * @param uid
+     * @return
+     */
+    String findHistoricalByUid(String uid);
 }

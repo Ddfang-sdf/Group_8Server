@@ -4,6 +4,8 @@ import com.sdf.domain.Order;
 import com.sdf.domain.Scanner;
 import com.sdf.domain.User;
 
+import java.util.List;
+
 public interface UserDao {
     /**
      * 查询是否存在该扫描员用户
@@ -38,4 +40,6 @@ public interface UserDao {
     boolean UserRegist(User user);
 
     User userLogin(User _user);
+
+    List<Order> findHistoricalByUid(String uid);
 }

@@ -9,6 +9,8 @@ import com.sdf.domain.Scanner;
 import com.sdf.domain.User;
 import com.sdf.service.UserService;
 
+import java.util.List;
+
 public class UserServiceImpl implements UserService {
     UserDao dao = new UserDaoImpl();
     ObjectMapper mapper = new ObjectMapper();
@@ -20,6 +22,7 @@ public class UserServiceImpl implements UserService {
             Json = mapper.writeValueAsString(temp_scanner);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
+            return Json;
         }
         return Json;
     }
@@ -56,6 +59,7 @@ public class UserServiceImpl implements UserService {
             Json = mapper.writeValueAsString(temp_order);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
+            return Json;
         }
         return Json;
     }
@@ -73,6 +77,25 @@ public class UserServiceImpl implements UserService {
             Json = mapper.writeValueAsString(temp_user);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
+            return Json;
+        }
+        return Json;
+    }
+
+    /**
+     *
+     * @param uid
+     * @return 订单集合的json数据
+     */
+    @Override
+    public String findHistoricalByUid(String uid) {
+        String Json = null;
+        List<Order> order_list = dao.findHistoricalByUid(uid);
+        try {
+            Json = mapper.writeValueAsString(order_list);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return Json;
         }
         return Json;
     }
