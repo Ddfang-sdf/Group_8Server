@@ -2,6 +2,7 @@ package com.sdf.service;
 
 import com.sdf.dao.UserDao;
 import com.sdf.dao.impl.UserDaoImpl;
+import com.sdf.domain.Order;
 import com.sdf.domain.Scanner;
 
 public interface ScannerService {
@@ -33,4 +34,11 @@ public interface ScannerService {
      * @param real_time_address
      */
     boolean ExpressSignIn(Long order_id, String real_time_address);
+
+    /**
+     * 根据订单号查询订单
+     * @return
+     * @param order_id
+     */
+    Order findOrderById(String order_id);
 }

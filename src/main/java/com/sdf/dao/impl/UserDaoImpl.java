@@ -71,4 +71,16 @@ public class UserDaoImpl implements UserDao {
             return false;
         return true;
     }
+
+    @Override
+    public Order findOrderById(String order_id) {
+        Order order = null;
+        String sql = "SELECT * FROM `order` WHERE order_id = ?";
+        try {
+            order = template.queryForObject(sql,new BeanPropertyRowMapper<Order>(Order.class),order_id);
+        }catch (EmptyResultDataAccessException e){
+            return order;
+        }
+        return order;
+    }
 }

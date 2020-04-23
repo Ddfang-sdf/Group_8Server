@@ -38,4 +38,9 @@ public class ScannerServiceImpl implements ScannerService {
             return false;
         return true;
     }
+
+    @Override
+    public Order findOrderById(String order_id) {
+        return dao.findOrderById(order_id);
+    }
 }

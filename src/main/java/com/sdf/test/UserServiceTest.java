@@ -1,5 +1,6 @@
 package com.sdf.test;
 
+import com.sdf.domain.Order;
 import com.sdf.domain.ResultInfo;
 import com.sdf.domain.Scanner;
 import com.sdf.service.ScannerService;
@@ -107,6 +108,16 @@ public class UserServiceTest {
         map.put("uid","李莫愁");
         map.put("uid","李莫愁");
 
+    }
+
+    /**
+     * #查询订单 请求中包含---订单号 372036854775807
+     */
+    @Test
+    public void testFindOrderById(){
+        String order_id = "372036854775807";
+        Order order = scannerService.findOrderById(order_id);
+        System.out.println(order);
     }
 
 }

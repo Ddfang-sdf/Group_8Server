@@ -31,4 +31,6 @@ public interface UserDao {
     Order findPhoneByOrderid(Long order_id);
 
     boolean insertIntoHistory(String user_phone, Long order_id);
+
+    Order findOrderById(String order_id);
 }
