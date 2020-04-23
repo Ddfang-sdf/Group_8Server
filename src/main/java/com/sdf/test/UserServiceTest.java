@@ -10,6 +10,7 @@ import com.sdf.service.UserService;
 import com.sdf.service.impl.UserServiceImpl;
 import com.sdf.utils.DruidUtils;
 import com.sdf.utils.JedisPoolUtils;
+import com.sdf.utils.MsgHouseUtils;
 import com.sdf.utils.ServletUtils;
 import org.apache.commons.beanutils.BeanUtils;
 import org.junit.Test;
@@ -52,7 +53,7 @@ public class UserServiceTest {
         if (scanner_ser != null) {
             info = ServletUtils.getInfo(true, scanner_ser, "");
         } else {
-            info = ServletUtils.getInfo(false, scanner_ser, "用户名或密码不正确");
+            info = ServletUtils.getInfo(false, scanner_ser, MsgHouseUtils.loginErrorMsg);
         }
         System.out.println(info);
 
@@ -73,7 +74,7 @@ public class UserServiceTest {
             info = ServletUtils.getInfo(true, true, "");
         } else {
             //修改失败
-            info = ServletUtils.getInfo(false, false, "修改失败，请稍后再试");
+            info = ServletUtils.getInfo(false, false, MsgHouseUtils.changeErrorMsg);
         }
         System.out.println(info);
 
@@ -221,7 +222,7 @@ public class UserServiceTest {
 
         } else {
             //失败
-            info = ServletUtils.getInfo(false, null, "寄件失败，请稍后再试");
+            info = ServletUtils.getInfo(false, null, MsgHouseUtils.sendExpressErrorMsg);
             json = mapper.writeValueAsString(info);
         }
         System.out.println(json);
@@ -244,7 +245,7 @@ public class UserServiceTest {
             String json = mapper.writeValueAsString(info);
             System.out.println(json);
         } else {
-            info = ServletUtils.getInfo(false, null, "未检索到个人信息，请稍后再试");
+            info = ServletUtils.getInfo(false, null, MsgHouseUtils.UserInfoErrorMsg);
             String json = mapper.writeValueAsString(info);
             System.out.println(json);
         }
@@ -272,7 +273,7 @@ u.`uid`=4;
             System.out.println(json);
         } else {
             //修改失败，提示错误信息
-            info = ServletUtils.getInfo(false, null, "系统繁忙，请稍后再试");
+            info = ServletUtils.getInfo(false, null, MsgHouseUtils.errorMsg);
             String json = mapper.writeValueAsString(info);
             System.out.println(json);
         }
@@ -315,7 +316,7 @@ u.`uid`=4;
             System.out.println(json);
         }else{
             //修改失败
-            info = ServletUtils.getInfo(false,null,"服务器繁忙，请稍后重试");
+            info = ServletUtils.getInfo(false,null,MsgHouseUtils.errorMsg);
             String json = mapper.writeValueAsString(info);
             System.out.println(json);
         }
