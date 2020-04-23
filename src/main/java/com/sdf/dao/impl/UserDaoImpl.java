@@ -3,6 +3,7 @@ package com.sdf.dao.impl;
 import com.sdf.dao.UserDao;
 import com.sdf.domain.Order;
 import com.sdf.domain.Scanner;
+import com.sdf.domain.User;
 import com.sdf.utils.DruidUtils;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -82,5 +83,18 @@ public class UserDaoImpl implements UserDao {
             return order;
         }
         return order;
+    }
+
+    @Override
+    public boolean UserRegist(User _user) {
+        String sql = "INSERT INTO `user` VALUES(NULL,?,?,?,?,?,?,?)";
+        Object[] args = new Object[]{
+          _user.getUsername(),_user.getPasswd(),_user.getAddress(),_user.getGender(),
+                _user.getAge(),_user.getIdentify(),_user.getUser_phone()
+        };
+        int check = template.update(sql, args);
+        if (check <= 0)
+            return false;
+        return true;
     }
 }

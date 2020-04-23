@@ -4,6 +4,7 @@ import com.sdf.dao.UserDao;
 import com.sdf.dao.impl.UserDaoImpl;
 import com.sdf.domain.Order;
 import com.sdf.domain.Scanner;
+import com.sdf.domain.User;
 
 public interface ScannerService {
 
@@ -41,4 +42,11 @@ public interface ScannerService {
      * @param order_id
      */
     Order findOrderById(String order_id);
+
+    /**
+     * 用户注册
+     * @param user
+     * @return
+     */
+    boolean UserRegist(User user);
 }

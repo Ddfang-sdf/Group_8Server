@@ -3,6 +3,7 @@ package com.sdf.test;
 import com.sdf.domain.Order;
 import com.sdf.domain.ResultInfo;
 import com.sdf.domain.Scanner;
+import com.sdf.domain.User;
 import com.sdf.service.ScannerService;
 import com.sdf.service.impl.ScannerServiceImpl;
 import com.sdf.utils.ServletUtils;
@@ -99,14 +100,25 @@ public class UserServiceTest {
 
     /**
      * 用户注册功能测试
+     * #用户注册 请求中包含---用户名，密码，地址，性别，年龄，身份证，手机
      * 表单数据如下：
      * NULL,'李莫愁','123456','河南省开封市金明校区华苑3号楼811室','女',17,'273747596018273645','13588239999'
      */
     @Test
-    public void test() {
+    public void test() throws InvocationTargetException, IllegalAccessException {
+        User _user = new User();
         Map<String,String> map = new HashMap<>();
-        map.put("uid","李莫愁");
-        map.put("uid","李莫愁");
+        map.put("username","李莫愁");
+        map.put("passwd","123456");
+        map.put("address","河南省开封市金明校区华苑3号楼811室");
+        map.put("gender","女");
+        map.put("age","17");
+        map.put("identify","273747596018273645");
+        map.put("user_phone","13588239999");
+        //System.out.println(map);
+        BeanUtils.populate(_user,map);
+        boolean user = scannerService.UserRegist(_user);
+        System.out.println(user);
 
     }
 

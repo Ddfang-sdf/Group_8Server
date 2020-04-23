@@ -4,6 +4,7 @@ import com.sdf.dao.UserDao;
 import com.sdf.dao.impl.UserDaoImpl;
 import com.sdf.domain.Order;
 import com.sdf.domain.Scanner;
+import com.sdf.domain.User;
 import com.sdf.service.ScannerService;
 
 public class ScannerServiceImpl implements ScannerService {
@@ -42,5 +43,10 @@ public class ScannerServiceImpl implements ScannerService {
     @Override
     public Order findOrderById(String order_id) {
         return dao.findOrderById(order_id);
+    }
+
+    @Override
+    public boolean UserRegist(User user) {
+        return dao.UserRegist(user);
     }
 }

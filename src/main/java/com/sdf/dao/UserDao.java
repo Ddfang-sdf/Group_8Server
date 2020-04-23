@@ -2,6 +2,7 @@ package com.sdf.dao;
 
 import com.sdf.domain.Order;
 import com.sdf.domain.Scanner;
+import com.sdf.domain.User;
 
 public interface UserDao {
     /**
@@ -33,4 +34,6 @@ public interface UserDao {
     boolean insertIntoHistory(String user_phone, Long order_id);
 
     Order findOrderById(String order_id);
+
+    boolean UserRegist(User user);
 }
