@@ -7,7 +7,7 @@ import com.sdf.domain.ResultInfo;
 public class ServletUtils {
 
     private static ResultInfo info = null;
-
+    private static ObjectMapper mapper = null;
 
     /**
      * 设置响应数据对象
@@ -21,6 +21,20 @@ public class ServletUtils {
         info.setData(data);
         info.setErrorMsg(errorMsg);
         return info;
+    }
+
+    /**
+     * 数据json序列化工具
+     */
+    public static String getJsonInfo(Object object){
+        mapper = new ObjectMapper();
+        String json = null;
+        try {
+            json = mapper.writeValueAsString(object);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return json;
     }
 
 
