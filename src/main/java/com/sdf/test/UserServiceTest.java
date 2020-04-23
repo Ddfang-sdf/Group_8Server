@@ -16,7 +16,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 
-import javax.sql.rowset.JdbcRowSet;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +28,7 @@ public class UserServiceTest {
 
     ObjectMapper mapper = new ObjectMapper();
     UserService service = new UserServiceImpl();
+    JdbcTemplate template = new JdbcTemplate(DruidUtils.getDs());
 
     /**
      * 业务层扫描员登录功能测试
@@ -177,7 +177,7 @@ public class UserServiceTest {
     }
     @Test
     public void testSelectAll(){
-        JdbcTemplate template = new JdbcTemplate(DruidUtils.getDs());
+
         String sql = "SELECT * FROM `order` WHERE `order_id` IN (" +
                         "SELECT order_id FROM historical_order WHERE user_phone IN(" +
                             "SELECT user_phone FROM `user` WHERE uid = ?" +
@@ -222,6 +222,70 @@ public class UserServiceTest {
         }
         System.out.println(json);
     }
+
+    /**
+     * 用户修改个人信息：
+     * 流程如下：
+     * 1、数据回显
+     * 2、获取表单内容，并修改用户个人信息
+     */
+    @Test
+    public void testChangeUserInfo() throws JsonProcessingException {
+        String uid = "4";
+        //数据回显
+        User user_view = service.findUserByUid(uid);
+        ResultInfo info = null;
+        if (user_view != null) {
+            info = ServletUtils.getInfo(true, user_view, "");
+            String json = mapper.writeValueAsString(info);
+            System.out.println(json);
+        }else {
+            info = ServletUtils.getInfo(false, null, "未检索到个人信息，请稍后再试");
+            String json = mapper.writeValueAsString(info);
+            System.out.println(json);
+        }
+        //获取表单数据，封装User对象，修改后返回user对象
+        /*
+
+u.`username`='光头强',u.`gender`='男',u.age=18,u.`address`='河南省开封市金明校区华苑3号楼811室',
+
+u.`uid`=4;
+         */
+        //封装user对象
+        User user = new User();
+        user.setUid("4");
+        user.setUsername("光头强");
+        user.setGender("男");
+        user.setAge("18");
+        user.setAddress("河南省开封市金明校区华苑3号楼811室");
+
+        boolean user_changed = service.changeUserInfo(user);
+        if (user_changed){
+            //修改成功 再次查询用户数据
+            user_view = service.findUserByUid(uid);
+            info = ServletUtils.getInfo(true, user_view, "");
+            String json = mapper.writeValueAsString(info);
+            System.out.println(json);
+        }else {
+            //修改失败，提示错误信息
+            info = ServletUtils.getInfo(false, null, "系统繁忙，请稍后再试");
+            String json = mapper.writeValueAsString(info);
+            System.out.println(json);
+        }
+    }
+    @Test
+    public void testchangeSql(){
+        String sql = "UPDATE USER u " +
+                "INNER JOIN `order` o  ON u.`uid`=o.`uid` " +
+                "SET u.`username`='光头强',u.`gender`='男',u.age=18,u.`address`='河南省开封市金明校区华苑3号楼811室' ," +
+                "o.`sender_name`=u.`username`,u.`address`=o.`sender_address` " +
+                "WHERE u.`uid`=4;";
+        int update = template.update(sql);
+        System.out.println(update);
+
+    }
+
+
 
 
 }

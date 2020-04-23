@@ -1,6 +1,5 @@
 package com.sdf.dao.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sdf.dao.UserDao;
 import com.sdf.domain.Order;
 import com.sdf.domain.Scanner;
@@ -117,9 +116,9 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<Order> findHistoricalByUid(String uid) {
         List<Order> order_list = null;
-        String sql = "SELECT * FROM `order` WHERE `order_id` IN (" +
-                "SELECT order_id FROM historical_order WHERE user_phone IN(" +
-                "SELECT user_phone FROM `user` WHERE uid = ?" +
+        String sql = "SELECT * FROM `order` WHERE `order_id` IN ( " +
+                "SELECT order_id FROM historical_order WHERE user_phone IN( " +
+                "SELECT user_phone FROM `user` WHERE uid = ? " +
                 ")" +
                 ")";
         try {
@@ -143,6 +142,37 @@ public class UserDaoImpl implements UserDao {
         if (check <= 0){
             return false;
         }
+        return true;
+    }
+
+    @Override
+    public User findUserByUid(String uid) {
+        User user = null;
+        String sql = "select * from user where uid = ?";
+        try{
+            user = template.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class), uid);
+
+        }catch (EmptyResultDataAccessException e){
+            return user;
+        }
+        return user;
+    }
+
+    @Override
+    public boolean changeUserInfo(User _user) {
+        User user = null;
+        String sql_update = "UPDATE USER u " +
+                "INNER JOIN `order` o  ON u.`uid`=o.`uid` " +
+                "SET u.`username`=?,u.`gender`=?,u.age=?,u.`address`=?, " +
+                "o.`sender_name`=u.`username`,u.`address`=o.`sender_address` " +
+                "WHERE u.`uid`=? ";
+        Object[] args = new Object[]{
+                _user.getUsername(),_user.getGender(),_user.getAge(),
+                _user.getAddress(),_user.getUid()
+        };
+        int check = template.update(sql_update, args);
+        if (check <= 0)
+            return false;
         return true;
     }
 }

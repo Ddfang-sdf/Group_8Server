@@ -74,4 +74,16 @@ public class UserServiceImpl implements UserService {
     public boolean mailingByUid(Order order) {
         return dao.mailingByUid(order);
     }
+
+    @Override
+    public User findUserByUid(String uid) {
+
+
+        return dao.findUserByUid(uid);
+    }
+
+    @Override
+    public boolean changeUserInfo(User user) {
+        return dao.changeUserInfo(user);
+    }
 }

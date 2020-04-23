@@ -72,4 +72,13 @@ public interface UserService {
      * @return
      */
     boolean mailingByUid(Order uid);
+
+    /**
+     * 查询用户个人信息
+     * @param uid
+     * @return
+     */
+    User findUserByUid(String uid);
+
+    boolean changeUserInfo(User user);
 }
