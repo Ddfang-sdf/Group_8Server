@@ -9,11 +9,13 @@ import com.sdf.domain.User;
 import com.sdf.service.UserService;
 import com.sdf.service.impl.UserServiceImpl;
 import com.sdf.utils.DruidUtils;
+import com.sdf.utils.JedisPoolUtils;
 import com.sdf.utils.ServletUtils;
 import org.apache.commons.beanutils.BeanUtils;
 import org.junit.Test;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import redis.clients.jedis.Jedis;
 
 
 import java.lang.reflect.InvocationTargetException;
@@ -282,7 +284,7 @@ u.`uid`=4;
                 "INNER JOIN `order` o  ON u.`uid`=o.`uid` " +
                 "SET u.`username`='光头强',u.`gender`='男',u.age=18,u.`address`='河南省开封市金明校区华苑3号楼811室' ," +
                 "o.`sender_name`=u.`username`,u.`address`=o.`sender_address` " +
-                "WHERE u.`uid`=4;";
+                "WHERE u.`uid`=4";
         int update = template.update(sql);
         System.out.println(update);
 
@@ -326,6 +328,26 @@ u.`uid`=4;
         String identify = template.queryForObject(sql,String.class);
         System.out.println(identify);
 
+    }
+
+    /**
+     * 测试redis
+     */
+    @Test
+    public void testRedis(){
+        Jedis jedis = JedisPoolUtils.getJedis();
+
+        jedis.set("小拳拳","锤你胸口");
+
+        String tip = jedis.get("小拳拳");
+
+        System.out.println(tip);
+
+        Long del = jedis.del("小拳拳");
+
+        System.out.println(del);
+
+        jedis.close();
     }
 
 }
