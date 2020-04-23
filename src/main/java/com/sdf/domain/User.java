@@ -1,19 +1,19 @@
 package com.sdf.domain;
 
 public class User {
-    private int uid;//用户id
+    private String uid;//用户id
     private String username;//用户名
     private String passwd;//用户密码
     private String address;//用户收货地址
     private String gender;//用户性别
-    private int age;//用户年龄
+    private String age;//用户年龄
     private String identify;//用户身份证
     private String user_phone;//用户手机
 
     public User() {
     }
 
-    public User(int uid, String username, String passwd, String address, String gender, int age, String identify, String user_phone) {
+    public User(String uid, String username, String passwd, String address, String gender, String age, String identify, String user_phone) {
         this.uid = uid;
         this.username = username;
         this.passwd = passwd;
@@ -24,11 +24,11 @@ public class User {
         this.user_phone = user_phone;
     }
 
-    public int getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(int uid) {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 
@@ -64,11 +64,11 @@ public class User {
         this.gender = gender;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
