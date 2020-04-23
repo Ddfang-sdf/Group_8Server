@@ -7,6 +7,9 @@ public class MsgHouseUtils {
 
     public static final String changeErrorMsg = "修改失败，请稍后再试！";
 
-    public static final String expressSignMsg = "请勿进行重复签收操作，服务器繁忙，请稍后再试！";
+    public static final String expressSignErrorMsg = "请勿进行重复签收操作，服务器繁忙，请稍后再试！";
 
+    public static final String sendExpressErrorMsg = "寄件失败，请稍后再试";
+
+    public static final String UserInfoErrorMsg = "未检索到个人信息，请稍后再试";
 }
