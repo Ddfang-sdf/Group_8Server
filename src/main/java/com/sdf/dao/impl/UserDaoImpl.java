@@ -27,7 +27,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean realAddressUpdate(String real_time_address, Long order_id) {
+    public boolean realAddressUpdate(String real_time_address, String order_id) {
         String sql = "UPDATE `order` SET real_time_address = ? WHERE order_id = ?";
         int check = template.update(sql, real_time_address, order_id);
         if (check <= 0)

@@ -21,7 +21,7 @@ public interface UserDao {
      * @param order_id
      * @return
      */
-    boolean realAddressUpdate(String real_time_address, Long order_id);
+    boolean realAddressUpdate(String real_time_address, String order_id);
 
     /**
      * 修改表order的签收状态，签收日期，实时地址

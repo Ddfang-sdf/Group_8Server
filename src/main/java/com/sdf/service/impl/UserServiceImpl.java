@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean realAddressUpdate(String real_time_address, Long order_id) {
+    public boolean realAddressUpdate(String real_time_address, String order_id) {
         return dao.realAddressUpdate(real_time_address, order_id);
     }
 
@@ -37,19 +37,19 @@ public class UserServiceImpl implements UserService {
         String sender_phone = order.getSender_phone();
 
         //3、向历史订单表插入数据
-        if(!dao.insertIntoHistory(sender_phone, order_id))
+        if (!dao.insertIntoHistory(sender_phone, order_id))
             return false;
         return true;
     }
 
     /**
-     * 订单数据
+     * 订单数据，根据订单号查询
+     *
      * @param order_id
      * @return
      */
     @Override
     public Order findOrderById(String order_id) {
-
         return dao.findOrderById(order_id);
     }
 
@@ -65,7 +65,6 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     *
      * @param uid
      * @return 订单集合的json数据
      */
@@ -100,6 +99,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean changeIdentify(String uid, String identify) {
-        return dao.changeIdentify(uid,identify);
+        return dao.changeIdentify(uid, identify);
     }
 }

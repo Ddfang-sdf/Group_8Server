@@ -5,7 +5,7 @@ import com.sdf.domain.Scanner;
 import com.sdf.service.UserService;
 import com.sdf.service.impl.UserServiceImpl;
 import com.sdf.utils.ServletUtils;
-import com.sdf.utils.StringUtils;
+import com.sdf.utils.MsgHouseUtils;
 import org.apache.commons.beanutils.BeanUtils;
 
 import javax.servlet.ServletException;
@@ -47,7 +47,7 @@ public class ScannerLoginServlet extends HttpServlet {
         Scanner scannerLogin = service.ScannerLogin(scanner);
         if (scannerLogin == null){
             //底层查询结果位null，则登录失败
-            info = ServletUtils.getInfo(false,null, StringUtils.loginErrorMsg);
+            info = ServletUtils.getInfo(false,null, MsgHouseUtils.loginErrorMsg);
             json = ServletUtils.getJsonInfo(info);
             resp.getWriter().write(json);
             return;

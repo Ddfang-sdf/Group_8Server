@@ -25,7 +25,7 @@ public interface UserService {
      * @param order_id
      * @return
      */
-    boolean realAddressUpdate(String real_time_address, Long order_id);
+    boolean realAddressUpdate(String real_time_address, String order_id);
 
     /**
      * 快件签收业务
@@ -39,7 +39,8 @@ public interface UserService {
     boolean ExpressSignIn(Long order_id, String real_time_address);
 
     /**
-     * 根据订单号查询订单
+     * 根据订单号查询订单，订单数据短时间不易改变，用户每次打开软件都可能查询订单，每次都访问关系型数据库
+     * 会影响用户体验，因此使用redis中间件做缓冲。
      * @return 订单对象的json数据
      * @param order_id
      */

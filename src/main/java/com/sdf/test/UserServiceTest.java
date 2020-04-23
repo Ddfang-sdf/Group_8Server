@@ -65,7 +65,7 @@ public class UserServiceTest {
     @Test
     public void testReal_address_update() {
         //servlet中获取用户数据
-        Long order_id = 372036854775808l;
+        String order_id = "372036854775808";
         ResultInfo info = null;
         String real_time_address = "河南省郑州市郑州大学校区仁和宿舍3号楼811室";
         if (service.realAddressUpdate(real_time_address, order_id)) {
