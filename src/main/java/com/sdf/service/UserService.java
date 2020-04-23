@@ -36,7 +36,7 @@ public interface UserService {
      * @param order_id
      * @param real_time_address
      */
-    boolean ExpressSignIn(Long order_id, String real_time_address);
+    boolean ExpressSignIn(String order_id, String real_time_address);
 
     /**
      * 根据订单号查询订单，订单数据短时间不易改变，用户每次打开软件都可能查询订单，每次都访问关系型数据库

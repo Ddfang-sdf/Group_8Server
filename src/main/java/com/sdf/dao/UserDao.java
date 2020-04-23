@@ -29,11 +29,11 @@ public interface UserDao {
      * @param real_time_address
      * @return
      */
-    boolean signStatusChange(Long order_id, String real_time_address);
+    boolean signStatusChange(String order_id, String real_time_address);
 
-    Order findPhoneByOrderid(Long order_id);
+    String findPhoneByOrderid(String order_id);
 
-    boolean insertIntoHistory(String user_phone, Long order_id);
+    boolean insertIntoHistory(String user_phone, String order_id);
 
     Order findOrderById(String order_id);
 

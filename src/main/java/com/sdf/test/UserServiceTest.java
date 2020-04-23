@@ -33,7 +33,7 @@ public class UserServiceTest {
     JdbcTemplate template = new JdbcTemplate(DruidUtils.getDs());
 
     /**
-     * 业务层扫描员登录功能测试
+     * 业务层扫描员登录功能测试 -----ScannerLoginServlet
      *
      * @throws InvocationTargetException
      * @throws IllegalAccessException
@@ -59,7 +59,7 @@ public class UserServiceTest {
     }
 
     /**
-     * 测试扫描员修改实时地址
+     * 测试扫描员修改实时地址 -----ChangeAddressServlet
      * 扫描员修改订单实时地址，请求中发送订单号,本次订单号位372036854775808
      */
     @Test
@@ -94,7 +94,7 @@ public class UserServiceTest {
     public void testOrder_sign() {
         //获取用户数据，
         //订单号
-        Long order_id = 372036854775808l;
+        String order_id = "372036854775808";
         // 签收状态
         String sign_for = "Y";
         //实时地址

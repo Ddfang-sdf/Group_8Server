@@ -24,20 +24,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean ExpressSignIn(Long order_id, String real_time_address) {
+    public boolean ExpressSignIn(String order_id, String real_time_address) {
         //1、修改快建表数据
         if (!dao.signStatusChange(order_id, real_time_address)) //修改失败
             return false;
         //2、查询用户电话
-        Order order = dao.findPhoneByOrderid(order_id);
+        String order_phone = dao.findPhoneByOrderid(order_id);
 
-        if (order == null)
+        if (order_phone == null)
             return false;
 
-        String sender_phone = order.getSender_phone();
-
         //3、向历史订单表插入数据
-        if (!dao.insertIntoHistory(sender_phone, order_id))
+        if (!dao.insertIntoHistory(order_phone, order_id))
             return false;
         return true;
     }

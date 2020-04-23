@@ -5,6 +5,7 @@ import com.sdf.domain.Order;
 import com.sdf.domain.Scanner;
 import com.sdf.domain.User;
 import com.sdf.utils.DruidUtils;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -36,7 +37,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean signStatusChange(Long order_id, String real_time_address) {
+    public boolean signStatusChange(String order_id, String real_time_address) {
         String sql = "UPDATE `order`" +
                 "SET sign_for = 'Y' , sign_date = NOW() , real_time_address = ?" +
                 "WHERE order_id = ?";
@@ -47,30 +48,35 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Order findPhoneByOrderid(Long order_id) {
-        Order order = null;
-        String id = new String(String.valueOf(order_id));
-        String sql = "SELECT * FROM `order` WHERE order_id = ?";
+    public String findPhoneByOrderid(String order_id) {
+        String sender_phone = null;
+
+        String sql = "SELECT sender_phone FROM `order` WHERE order_id = ?";
         try {
 
-            order = template.queryForObject(sql, new BeanPropertyRowMapper<Order>(Order.class), id);
+            sender_phone = template.queryForObject(sql, String.class, order_id);
 
         } catch (EmptyResultDataAccessException e) {
-            return order;
+            return sender_phone;
         }
-        return order;
+        return sender_phone;
     }
 
     /**
      * 因为不会用 JdbcTemplate的事务管理功能，所以这里即使给出了是否查询成功的信号，也没有意义
-     *
-     * @param user_phone
+     *  @param user_phone
      * @param order_id
      */
     @Override
-    public boolean insertIntoHistory(String user_phone, Long order_id) {
+    public boolean insertIntoHistory(String user_phone, String order_id) {
         String sql = "INSERT INTO historical_order VALUES(?,?)";
-        int check = template.update(sql, user_phone, order_id);
+        int check = 0;
+        try {
+
+             check = template.update(sql, user_phone, order_id);
+        }catch (DuplicateKeyException e){
+            return true;
+        }
         if (check <= 0)//插入失败，返回false
             return false;
         return true;
