@@ -36,4 +36,6 @@ public interface UserDao {
     Order findOrderById(String order_id);
 
     boolean UserRegist(User user);
+
+    User userLogin(User _user);
 }

@@ -1,6 +1,5 @@
 package com.sdf.test;
 
-import com.sdf.domain.Order;
 import com.sdf.domain.ResultInfo;
 import com.sdf.domain.Scanner;
 import com.sdf.domain.User;
@@ -20,7 +19,7 @@ import java.util.Map;
  */
 public class UserServiceTest {
 
-    UserService scannerService = new UserServiceImpl();
+    UserService service = new UserServiceImpl();
 
     /**
      * 业务层扫描员登录功能测试
@@ -38,7 +37,7 @@ public class UserServiceTest {
         map.put("s_username", "赵校来");
         map.put("s_passwd", "123456");
         BeanUtils.populate(scanner_cus, map);
-        Scanner scanner_ser = scannerService.ScannerLogin(scanner_cus);
+        String scanner_ser = scannerService.ScannerLogin(scanner_cus);
         if (scanner_ser != null) {
             info = ServletUtils.getInfo(true, scanner_ser, "");
         } else {
@@ -56,14 +55,16 @@ public class UserServiceTest {
     public void testReal_address_update() {
         //servlet中获取用户数据
         Long order_id = 372036854775808l;
+        ResultInfo info = null;
         String real_time_address = "河南省郑州市郑州大学校区仁和宿舍3号楼811室";
-        if (scannerService.realAddressUpdate(real_time_address, order_id)) {
+        if (service.realAddressUpdate(real_time_address, order_id)) {
             //修改成功
-            System.out.println("T");
+            info = ServletUtils.getInfo(true, true, "");
         } else {
             //修改失败
-            System.out.println("F");
+            info = ServletUtils.getInfo(false, false, "修改失败，请稍后再试");
         }
+        System.out.println(info);
 
     }
 
@@ -88,7 +89,7 @@ public class UserServiceTest {
         //实时地址
         String real_time_address = "河南省郑州市郑州大学校区仁和宿舍3号楼811室";
         //调用业务层快件签收方法
-        if (scannerService.ExpressSignIn(order_id, real_time_address)) {
+        if (service.ExpressSignIn(order_id, real_time_address)) {
             //快件签收完成
             System.out.println("快件签收完成");
         } else {
@@ -117,7 +118,7 @@ public class UserServiceTest {
         map.put("user_phone","13588239999");
         //System.out.println(map);
         BeanUtils.populate(_user,map);
-        boolean user = scannerService.UserRegist(_user);
+        boolean user = service.UserRegist(_user);
         System.out.println(user);
 
     }
@@ -128,16 +129,29 @@ public class UserServiceTest {
     @Test
     public void testFindOrderById(){
         String order_id = "372036854775807";
-        Order order = scannerService.findOrderById(order_id);
-        System.out.println(order);
+        String order = service.findOrderById(order_id);
+        ResultInfo info = ServletUtils.getInfo(true, order, "");
+        System.out.println(info);
     }
 
     /**
-     * 用户登录功能，流程如下：
-     * 1、用户在前端页面填写表单
-     * 2、服务器校验用户名和密码
-     * 3、服务器查询历史订单
-     * 4、封装历史订单对象响应回前端
+     * 用户登录功能：
+     * #用户登陆 请求中包含---用户名 密码
      */
+    @Test
+    public void testUserLogin() throws InvocationTargetException, IllegalAccessException {
+        User _user = new User();
+        String username = "李莫愁";
+        String passwd = "123456";
+        Map<String,String> map = new HashMap<>();
+        map.put("username","李莫愁");
+        map.put("passwd","123456");
+        BeanUtils.populate(_user,map);
+        String user = service.userLogin(_user);
+        ResultInfo info = ServletUtils.getInfo(true, user, "");
+        System.out.println(info);
+
+    }
+
 
 }

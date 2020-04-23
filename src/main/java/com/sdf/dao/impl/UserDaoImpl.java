@@ -97,4 +97,16 @@ public class UserDaoImpl implements UserDao {
             return false;
         return true;
     }
+
+    @Override
+    public User userLogin(User _user) {
+        User user = null;
+        String sql = "SELECT * FROM USER WHERE username = ? AND passwd = ?";
+        try {
+            user = template.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class), _user.getUsername(), _user.getPasswd());
+        }catch (EmptyResultDataAccessException e){
+            return user;
+        }
+        return user;
+    }
 }

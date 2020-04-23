@@ -1,5 +1,7 @@
 package com.sdf.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sdf.dao.UserDao;
 import com.sdf.dao.impl.UserDaoImpl;
 import com.sdf.domain.Order;
@@ -9,11 +11,17 @@ import com.sdf.service.UserService;
 
 public class UserServiceImpl implements UserService {
     UserDao dao = new UserDaoImpl();
-
+    ObjectMapper mapper = new ObjectMapper();
     @Override
-    public Scanner ScannerLogin(Scanner scanner) {
-
-        return dao.findForLogin(scanner);
+    public String ScannerLogin(Scanner scanner) {
+        Scanner temp_scanner = dao.findForLogin(scanner);
+        String Json = null;
+        try {
+            Json = mapper.writeValueAsString(temp_scanner);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return Json;
     }
 
     @Override
@@ -41,12 +49,31 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Order findOrderById(String order_id) {
-        return dao.findOrderById(order_id);
+    public String findOrderById(String order_id) {
+        Order temp_order = dao.findOrderById(order_id);
+        String Json = null;
+        try {
+            Json = mapper.writeValueAsString(temp_order);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return Json;
     }
 
     @Override
     public boolean UserRegist(User user) {
         return dao.UserRegist(user);
+    }
+
+    @Override
+    public String userLogin(User user) {
+        User temp_user = dao.userLogin(user);
+        String Json = null;
+        try {
+            Json = mapper.writeValueAsString(temp_user);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return Json;
     }
 }
