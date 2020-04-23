@@ -1,11 +1,13 @@
 package com.sdf.utils;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sdf.domain.ResultInfo;
 
 public class ServletUtils {
-    private ObjectMapper mapper = new ObjectMapper();
+
     private static ResultInfo info = null;
+
 
     /**
      * 设置响应数据对象
@@ -20,6 +22,7 @@ public class ServletUtils {
         info.setErrorMsg(errorMsg);
         return info;
     }
+
 
 
 }
