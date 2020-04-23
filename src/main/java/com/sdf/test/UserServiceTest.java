@@ -4,8 +4,8 @@ import com.sdf.domain.Order;
 import com.sdf.domain.ResultInfo;
 import com.sdf.domain.Scanner;
 import com.sdf.domain.User;
-import com.sdf.service.ScannerService;
-import com.sdf.service.impl.ScannerServiceImpl;
+import com.sdf.service.UserService;
+import com.sdf.service.impl.UserServiceImpl;
 import com.sdf.utils.ServletUtils;
 import org.apache.commons.beanutils.BeanUtils;
 import org.junit.Test;
@@ -20,7 +20,7 @@ import java.util.Map;
  */
 public class UserServiceTest {
 
-    ScannerService scannerService = new ScannerServiceImpl();
+    UserService scannerService = new UserServiceImpl();
 
     /**
      * 业务层扫描员登录功能测试
@@ -31,7 +31,7 @@ public class UserServiceTest {
     @Test
     public void testScannerLogin() throws InvocationTargetException, IllegalAccessException {
         Scanner scanner_cus = new Scanner();
-        ScannerService scannerService = new ScannerServiceImpl();
+        UserService scannerService = new UserServiceImpl();
         ResultInfo info = null;
         //servlet 从请求中获取用户名密码，封装为map
         Map<String, String> map = new HashMap<>();
@@ -131,5 +131,13 @@ public class UserServiceTest {
         Order order = scannerService.findOrderById(order_id);
         System.out.println(order);
     }
+
+    /**
+     * 用户登录功能，流程如下：
+     * 1、用户在前端页面填写表单
+     * 2、服务器校验用户名和密码
+     * 3、服务器查询历史订单
+     * 4、封装历史订单对象响应回前端
+     */
 
 }
