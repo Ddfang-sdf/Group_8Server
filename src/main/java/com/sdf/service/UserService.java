@@ -65,4 +65,11 @@ public interface UserService {
      * @return
      */
     List<Order> findHistoricalByUid(String uid);
+
+    /**
+     * 寄件功能
+     * @param uid
+     * @return
+     */
+    boolean mailingByUid(Order uid);
 }

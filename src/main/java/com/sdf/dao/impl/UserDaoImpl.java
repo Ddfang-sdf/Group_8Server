@@ -1,5 +1,6 @@
 package com.sdf.dao.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sdf.dao.UserDao;
 import com.sdf.domain.Order;
 import com.sdf.domain.Scanner;
@@ -9,7 +10,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class UserDaoImpl implements UserDao {
@@ -128,5 +128,21 @@ public class UserDaoImpl implements UserDao {
             return order_list;
         }
         return order_list;
+    }
+
+    @Override
+    public boolean mailingByUid(Order _order) {
+        String sql = "INSERT INTO `order` VALUES(?,?,?,?,?,?,?,NULL,'N',NULL,?,?,?)";
+        Object[] args = new Object[]{
+                _order.getUid(), _order.getSender_address(), _order.getSender_name(),
+                _order.getSender_phone(), _order.getReceiver_address(), _order.getReceiver_name(),
+                _order.getReceiver_phone(),_order.getWeight(),_order.getType(),
+                _order.getReal_time_address()
+        };
+        int check = template.update(sql, args);
+        if (check <= 0){
+            return false;
+        }
+        return true;
     }
 }

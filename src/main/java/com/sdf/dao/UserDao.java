@@ -42,4 +42,6 @@ public interface UserDao {
     User userLogin(User _user);
 
     List<Order> findHistoricalByUid(String uid);
+
+    boolean mailingByUid(Order _order);
 }

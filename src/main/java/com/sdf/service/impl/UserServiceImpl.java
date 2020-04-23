@@ -1,7 +1,5 @@
 package com.sdf.service.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sdf.dao.UserDao;
 import com.sdf.dao.impl.UserDaoImpl;
 import com.sdf.domain.Order;
@@ -70,5 +68,10 @@ public class UserServiceImpl implements UserService {
     public List<Order> findHistoricalByUid(String uid) {
 
         return dao.findHistoricalByUid(uid);
+    }
+
+    @Override
+    public boolean mailingByUid(Order order) {
+        return dao.mailingByUid(order);
     }
 }

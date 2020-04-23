@@ -186,7 +186,42 @@ public class UserServiceTest {
         List<Order> order_list = template.query(sql, new BeanPropertyRowMapper<Order>(Order.class), "4");
         System.out.println(order_list);
     }
+    /**
+     * 寄件功能测试，
+     *  #寄件功能,请求中包含---包含uid，此处李莫愁注册登陆之后，uid是6
+     */
+    @Test
+    public void testMailingByUid() throws JsonProcessingException {
+        String uid = "6";
+        ResultInfo info = null;
+        String json = null;
+        Order order = new Order();
+        order.setUid(6);
+        order.setSender_address("河南省开封市明伦小区仁和公寓3号楼811室");
+        order.setSender_name("李莫愁");
+        order.setSender_phone("13788239993");
+        order.setReceiver_address("河南省开封市金明校区华苑3号楼811室");
+        order.setReceiver_name("陆展元");
+        order.setReceiver_phone("13566668380");
+        order.setWeight(20);
+        order.setType("易碎品");
+        order.setReal_time_address("河南省开封市明伦小区仁和公寓3号楼811室");
+        /*
+        6,'河南省开封市明伦小区仁和公寓3号楼811室','李莫愁','13788239993','河南省开封市金明校区华苑3号楼811室',
+'陆展元','13566668380',NULL,'N',NULL,20,'易碎品','河南省开封市明伦小区仁和公寓3号楼811室'
+         */
+        if (service.mailingByUid(order)){
+            //成功
+            info = ServletUtils.getInfo(true,null,"");
+            json = mapper.writeValueAsString(info);
 
+        }else {
+            //失败
+            info = ServletUtils.getInfo(false,null,"寄件失败，请稍后再试");
+           json = mapper.writeValueAsString(info);
+        }
+        System.out.println(json);
+    }
 
 
 }
