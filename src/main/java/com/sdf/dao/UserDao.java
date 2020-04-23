@@ -48,4 +48,8 @@ public interface UserDao {
     User findUserByUid(String uid);
 
     boolean changeUserInfo(User user);
+
+    boolean changeIdentify(String uid, String identify);
+
+    String findIdentifyByUid(String uid);
 }

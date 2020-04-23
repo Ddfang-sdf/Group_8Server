@@ -80,5 +80,25 @@ public interface UserService {
      */
     User findUserByUid(String uid);
 
+    /**
+     * 修改用户个人信息
+     * @param user
+     * @return
+     */
     boolean changeUserInfo(User user);
+
+    /**
+     * 修改用户身份证号码
+     * @param uid
+     * @param identify
+     * @return
+     */
+    boolean changeIdentify(String uid, String identify);
+
+    /**
+     * 根据用户的uid查询身份证号码
+     * @param uid
+     * @return
+     */
+    String findIdentifyByUid(String uid);
 }

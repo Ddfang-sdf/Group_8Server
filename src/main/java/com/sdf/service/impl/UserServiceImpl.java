@@ -86,4 +86,15 @@ public class UserServiceImpl implements UserService {
     public boolean changeUserInfo(User user) {
         return dao.changeUserInfo(user);
     }
+
+    @Override
+    public String findIdentifyByUid(String uid) {
+
+        return dao.findIdentifyByUid(uid);
+    }
+
+    @Override
+    public boolean changeIdentify(String uid, String identify) {
+        return dao.changeIdentify(uid,identify);
+    }
 }

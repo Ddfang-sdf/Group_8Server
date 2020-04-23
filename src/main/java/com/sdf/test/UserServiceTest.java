@@ -175,20 +175,22 @@ public class UserServiceTest {
 
         System.out.println(s);
     }
+
     @Test
-    public void testSelectAll(){
+    public void testSelectAll() {
 
         String sql = "SELECT * FROM `order` WHERE `order_id` IN (" +
-                        "SELECT order_id FROM historical_order WHERE user_phone IN(" +
-                            "SELECT user_phone FROM `user` WHERE uid = ?" +
-                        ")" +
-                    ")";
+                "SELECT order_id FROM historical_order WHERE user_phone IN(" +
+                "SELECT user_phone FROM `user` WHERE uid = ?" +
+                ")" +
+                ")";
         List<Order> order_list = template.query(sql, new BeanPropertyRowMapper<Order>(Order.class), "4");
         System.out.println(order_list);
     }
+
     /**
      * 寄件功能测试，
-     *  #寄件功能,请求中包含---包含uid，此处李莫愁注册登陆之后，uid是6
+     * #寄件功能,请求中包含---包含uid，此处李莫愁注册登陆之后，uid是6
      */
     @Test
     public void testMailingByUid() throws JsonProcessingException {
@@ -210,15 +212,15 @@ public class UserServiceTest {
         6,'河南省开封市明伦小区仁和公寓3号楼811室','李莫愁','13788239993','河南省开封市金明校区华苑3号楼811室',
 '陆展元','13566668380',NULL,'N',NULL,20,'易碎品','河南省开封市明伦小区仁和公寓3号楼811室'
          */
-        if (service.mailingByUid(order)){
+        if (service.mailingByUid(order)) {
             //成功
-            info = ServletUtils.getInfo(true,null,"");
+            info = ServletUtils.getInfo(true, null, "");
             json = mapper.writeValueAsString(info);
 
-        }else {
+        } else {
             //失败
-            info = ServletUtils.getInfo(false,null,"寄件失败，请稍后再试");
-           json = mapper.writeValueAsString(info);
+            info = ServletUtils.getInfo(false, null, "寄件失败，请稍后再试");
+            json = mapper.writeValueAsString(info);
         }
         System.out.println(json);
     }
@@ -239,7 +241,7 @@ public class UserServiceTest {
             info = ServletUtils.getInfo(true, user_view, "");
             String json = mapper.writeValueAsString(info);
             System.out.println(json);
-        }else {
+        } else {
             info = ServletUtils.getInfo(false, null, "未检索到个人信息，请稍后再试");
             String json = mapper.writeValueAsString(info);
             System.out.println(json);
@@ -260,21 +262,22 @@ u.`uid`=4;
         user.setAddress("河南省开封市金明校区华苑3号楼811室");
 
         boolean user_changed = service.changeUserInfo(user);
-        if (user_changed){
+        if (user_changed) {
             //修改成功 再次查询用户数据
             user_view = service.findUserByUid(uid);
             info = ServletUtils.getInfo(true, user_view, "");
             String json = mapper.writeValueAsString(info);
             System.out.println(json);
-        }else {
+        } else {
             //修改失败，提示错误信息
             info = ServletUtils.getInfo(false, null, "系统繁忙，请稍后再试");
             String json = mapper.writeValueAsString(info);
             System.out.println(json);
         }
     }
+
     @Test
-    public void testchangeSql(){
+    public void testchangeSql() {
         String sql = "UPDATE USER u " +
                 "INNER JOIN `order` o  ON u.`uid`=o.`uid` " +
                 "SET u.`username`='光头强',u.`gender`='男',u.age=18,u.`address`='河南省开封市金明校区华苑3号楼811室' ," +
@@ -284,8 +287,45 @@ u.`uid`=4;
         System.out.println(update);
 
     }
+    /**
+     * 用户修改身份证号码功能测试
+     * 流程：
+     * 1、数据回显
+     * 2、修改user表
+     * 3、响应新的user对象
+     * #修改身份证 请求中包含---包含uid，身份证
+     * 此处光头强先生（uid=4）修改身份证为：283747592218273649
+     */
+    @Test
+    public void testchangeIdentify() throws JsonProcessingException {
+        String uid = "4";
+        String identify = "283747592218273649";
+        //1身份证号回显
+        String _identify = service.findIdentifyByUid(uid);
+        System.out.println("用户修改前身份证号"+_identify);
+        //2修改身份证号码
+        ResultInfo info = null;
+        if (service.changeIdentify(uid,identify)){
+            //修改成功
+            User userByUid = service.findUserByUid(uid);
+            info = ServletUtils.getInfo(true,userByUid,"");
+            String json = mapper.writeValueAsString(info);
+            System.out.println(json);
+        }else{
+            //修改失败
+            info = ServletUtils.getInfo(false,null,"服务器繁忙，请稍后重试");
+            String json = mapper.writeValueAsString(info);
+            System.out.println(json);
+        }
+    }
 
+    @Test
+    public void testSelectForOneField(){
+        String uid = "4";
+        String sql = "select identify from user where uid = 4";
+        String identify = template.queryForObject(sql,String.class);
+        System.out.println(identify);
 
-
+    }
 
 }

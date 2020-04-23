@@ -175,4 +175,25 @@ public class UserDaoImpl implements UserDao {
             return false;
         return true;
     }
+
+    @Override
+    public String findIdentifyByUid(String uid) {
+        String sql = "select identify from user where uid = ?";
+        String identify = null;
+        try{
+            identify = template.queryForObject(sql, String.class, uid);
+        }catch (EmptyResultDataAccessException e){
+            return identify;
+        }
+        return identify;
+    }
+
+    @Override
+    public boolean changeIdentify(String uid, String identify) {
+        String sql = "UPDATE `user` SET identify = ? WHERE uid = ?";
+        int check = template.update(sql,identify,uid);
+        if (check <= 0)
+            return false;
+        return true;
+    }
 }
