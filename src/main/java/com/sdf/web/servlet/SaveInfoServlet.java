@@ -48,7 +48,7 @@ public class SaveInfoServlet extends HttpServlet {
             json = ServletUtils.getJsonInfo(res);
             response.getWriter().write(json);
         }else{
-            res = ServletUtils.getInfo(false,null, MsgHouseUtils.changeErrorMsg);
+            res = ServletUtils.getInfo(false,null,MsgHouseUtils.changeErrorMsg);
             json = ServletUtils.getJsonInfo(res);
             response.getWriter().write(json);
         }

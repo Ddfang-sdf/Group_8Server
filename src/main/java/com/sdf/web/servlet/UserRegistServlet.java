@@ -48,7 +48,7 @@ public class UserRegistServlet extends HttpServlet {
             json = ServletUtils.getJsonInfo(res);
             response.getWriter().write(json);
         }else{
-            res = ServletUtils.getInfo(false,null, MsgHouseUtils.registerErrorMsg);
+            res = ServletUtils.getInfo(false,null,MsgHouseUtils.registerErrorMsg);
             json = ServletUtils.getJsonInfo(res);
             response.getWriter().write(json);
         }

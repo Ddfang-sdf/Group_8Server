@@ -48,7 +48,7 @@ public class UserLoginServlet extends HttpServlet {
             json = ServletUtils.getJsonInfo(res);
             response.getWriter().write(json);
         }else{
-            res = ServletUtils.getInfo(false,null, MsgHouseUtils.loginErrorMsg);
+            res = ServletUtils.getInfo(false,null,MsgHouseUtils.loginErrorMsg);
             json = ServletUtils.getJsonInfo(res);
             response.getWriter().write(json);
         }
