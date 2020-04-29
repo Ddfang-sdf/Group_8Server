@@ -44,7 +44,7 @@ public class UserLoginServlet extends HttpServlet {
         }
         User user = userService.userLogin(loginUser);
         if(user != null){
-            res = ServletUtils.getInfo(true,loginUser,"登录成功");
+            res = ServletUtils.getInfo(true,user,"登录成功");
             json = ServletUtils.getJsonInfo(res);
             response.getWriter().write(json);
         }else{
