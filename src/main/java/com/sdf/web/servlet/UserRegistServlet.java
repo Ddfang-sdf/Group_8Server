@@ -52,6 +52,7 @@ public class UserRegistServlet extends HttpServlet {
             json = ServletUtils.getJsonInfo(res);
             response.getWriter().write(json);
         }
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
