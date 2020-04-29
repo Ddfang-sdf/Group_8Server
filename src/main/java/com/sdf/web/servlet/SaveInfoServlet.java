@@ -53,17 +53,6 @@ public class SaveInfoServlet extends HttpServlet {
             response.getWriter().write(json);
         }
 
-        /*String action = request.getParameter("action");
-        if("query".equals(action)){
-            //userDao.queryInfo();
-            return;
-        }*/
-        //System.out.println("name-->" + user.getName() + "age--->" + user.getAge() + "gender--->" + user.getGender() + "address--->" + user.getAddress());
-
-        //userDao.updateInfo(user);
-
-        /*ServletOutputStream sos = response.getOutputStream();
-        sos.write("success".getBytes("utf-8"));*/
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

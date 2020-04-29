@@ -44,7 +44,7 @@ public class UserRegistServlet extends HttpServlet {
         }
         //注册
         if(userService.UserRegist(registUser)){
-            res = ServletUtils.getInfo(true,null,"注册成功");
+            res = ServletUtils.getInfo(true,registUser,"注册成功");
             json = ServletUtils.getJsonInfo(res);
             response.getWriter().write(json);
         }else{
