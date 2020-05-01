@@ -1,15 +1,17 @@
 package com.sdf.dao;
 
 import com.sdf.domain.Scanner;
+import com.sdf.domain.User;
+import org.apache.ibatis.annotations.Param;
 
 import java.io.Serializable;
 
 public interface UserMapper {
 
     /**
-     * 查询是否存在该扫描员用户
-     * @param scanner
+     * 用户登陆
+     * @param  user
      * @return
      */
-    Scanner findForLogin(Scanner scanner);
+    User userLogin(@Param("user") User user);
 }
