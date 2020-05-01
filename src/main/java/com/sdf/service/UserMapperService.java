@@ -49,6 +49,11 @@ public class UserMapperService {
         }
     }
 
+    /**
+     * 用户登陆
+     * @param _user
+     * @return
+     */
     public User testUserLogin(User _user)  {
 
         init();
@@ -61,7 +66,18 @@ public class UserMapperService {
             destroy();
 
         }
+    }
 
+    /**
+     * 用户注册
+     */
+    public Boolean userRegist(User user) {
+        init();
+        try {
+            return userMapper.userRegist(user);
+        }finally {
+            destroy();
+        }
 
     }
 

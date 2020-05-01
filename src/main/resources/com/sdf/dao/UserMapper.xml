@@ -28,4 +28,19 @@
             username = #{user.username} and passwd = #{user.passwd}
         </where>
     </select>
+
+    <!--boolean UserRegist(User user);-->
+    <!--private String uid;//用户id
+    private String username;//用户名
+    private String passwd;//用户密码
+    private String address;//用户收货地址
+    private String gender;//用户性别
+    private String age;//用户年龄
+    private String identify;//用户身份证
+    private String user_phone;//用户手机-->
+    <insert id="userRegist">
+        insert into user values
+        (null,#{user.username},#{user.passwd},#{user.address},
+        #{user.gender},#{user.age},#{user.identify},#{user.user_phone})
+    </insert>
 </mapper>

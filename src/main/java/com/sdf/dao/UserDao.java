@@ -9,6 +9,7 @@ import java.util.List;
 public interface UserDao {
     /**
      * 查询是否存在该扫描员用户
+     *
      * @param scanner
      * @return
      */
@@ -25,6 +26,7 @@ public interface UserDao {
 
     /**
      * 修改表order的签收状态，签收日期，实时地址
+     *
      * @param order_id
      * @param real_time_address
      * @return

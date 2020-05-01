@@ -14,4 +14,11 @@ public interface UserMapper {
      * @return
      */
     User userLogin(@Param("user") User user);
+
+    /**
+     * 用户注册校验
+     * @param user
+     * @return
+     */
+    boolean userRegist(@Param("user") User user);
 }

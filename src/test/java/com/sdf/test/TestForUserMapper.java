@@ -12,8 +12,6 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -83,4 +81,28 @@ public class TestForUserMapper {
         System.out.println(json);
     }
 
+    @Test
+    public void testUserRegist() throws InvocationTargetException, IllegalAccessException {
+        User _user = new User();
+        Map<String, String> map = new HashMap<>();
+        map.put("username", "李莫愁");
+        map.put("passwd", "123456");
+        map.put("address", "河南省开封市金明校区华苑3号楼811室");
+        map.put("gender", "女");
+        map.put("age", "17");
+        map.put("identify", "273747596018273645");
+        map.put("user_phone", "13588239999");
+        //System.out.println(map);
+        BeanUtils.populate(_user, map);
+
+        if(service.userRegist(_user)) {
+            info = ServletUtils.getInfo(true,null,"");
+            json = ServletUtils.getJsonInfo(info);
+        }else {
+            info = ServletUtils.getInfo(false,null,MsgHouseUtils.registerErrorMsg);
+            json = ServletUtils.getJsonInfo(info);
+        }
+        System.out.println(json);
+
+    }
 }

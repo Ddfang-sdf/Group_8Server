@@ -118,7 +118,7 @@ public class UserServiceTest {
      * NULL,'李莫愁','123456','河南省开封市金明校区华苑3号楼811室','女',17,'273747596018273645','13588239999'
      */
     @Test
-    public void test() throws InvocationTargetException, IllegalAccessException {
+    public void testUserRegist() throws InvocationTargetException, IllegalAccessException {
         User _user = new User();
         Map<String, String> map = new HashMap<>();
         map.put("username", "李莫愁");
