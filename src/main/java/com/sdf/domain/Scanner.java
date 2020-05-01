@@ -1,6 +1,8 @@
 package com.sdf.domain;
 
-public class Scanner {
+import java.io.Serializable;
+
+public class Scanner implements Serializable {
     private int sid;//扫描员id
     private String s_username;//扫描员用户名
     private String s_passwd;//扫描员密码
