@@ -265,6 +265,7 @@ u.`uid`=4;
         user.setGender("男");
         user.setAge("18");
         user.setAddress("河南省开封市金明校区华苑3号楼811室");
+        user.setIdentify("283747592218273649");
 
         boolean user_changed = service.changeUserInfo(user);
         if (user_changed) {
