@@ -131,6 +131,8 @@ public class UserServiceTest {
         //System.out.println(map);
         BeanUtils.populate(_user, map);
         boolean user = service.UserRegist(_user);
+
+
         System.out.println(user);
 
     }

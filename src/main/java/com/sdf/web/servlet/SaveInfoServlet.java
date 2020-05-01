@@ -22,8 +22,10 @@ import java.util.Map;
 public class SaveInfoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        request.setCharacterEncoding("utf-8");
-        response.setContentType("text/html;charset=utf-8");
+        //这里不要设置，我写了一个过滤器了，而且要给客户端发送的是json数据，响应编码格式应该是application/json;charset=utf-8 ----by sdf
+//        request.setCharacterEncoding("utf-8");
+//        response.setContentType("text/html;charset=utf-8");
+
 
         //创建业务层对象
         UserService userService = new UserServiceImpl();
@@ -44,7 +46,8 @@ public class SaveInfoServlet extends HttpServlet {
         }
         //修改
         if(userService.changeUserInfo(user)){
-            res = ServletUtils.getInfo(true,user,"修改成功");
+            //修改成功，不需要给ErrorMsg ---- by sdf
+            res = ServletUtils.getInfo(true,user,"");
             json = ServletUtils.getJsonInfo(res);
             response.getWriter().write(json);
         }else{

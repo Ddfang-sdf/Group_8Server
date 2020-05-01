@@ -20,9 +20,9 @@ import java.util.Map;
 @WebServlet("/userLoginServlet")
 public class UserLoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        request.setCharacterEncoding("utf-8");
-        response.setContentType("text/html;charset=utf-8");
+        //这里不要设置，我写了一个过滤器了，而且要给客户端发送的是json数据，响应编码格式应该是application/json;charset=utf-8 ----by sdf
+//        request.setCharacterEncoding("utf-8");
+//        response.setContentType("text/html;charset=utf-8");
 
         //创建业务层对象
         UserService userService = new UserServiceImpl();
@@ -44,7 +44,8 @@ public class UserLoginServlet extends HttpServlet {
         }
         User user = userService.userLogin(loginUser);
         if(user != null){
-            res = ServletUtils.getInfo(true,user,"登录成功");
+            //登陆成功，不需要给ErrorMsg ---- by sdf
+            res = ServletUtils.getInfo(true,user,"");
             json = ServletUtils.getJsonInfo(res);
             response.getWriter().write(json);
         }else{
