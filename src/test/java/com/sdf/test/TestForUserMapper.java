@@ -1,6 +1,7 @@
 package com.sdf.test;
 
 import com.sdf.dao.UserMapper;
+import com.sdf.domain.Order;
 import com.sdf.domain.ResultInfo;
 import com.sdf.domain.User;
 import com.sdf.service.UserMapperService;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TestForUserMapper {
@@ -103,6 +105,46 @@ public class TestForUserMapper {
             json = ServletUtils.getJsonInfo(info);
         }
         System.out.println(json);
+
+    }
+
+    @Test
+    public void testFindOrderById(){
+        String order_id = "372036854775807";
+        Order orderById = service.findOrderById(order_id);
+        if (orderById != null){
+            info = ServletUtils.getInfo(true,orderById,"");
+            json = ServletUtils.getJsonInfo(info);
+        }else {
+            info = ServletUtils.getInfo(false,null,MsgHouseUtils.errorMsg);
+            json = ServletUtils.getJsonInfo(info);
+        }
+        System.out.println(json);
+    }
+
+    @Test
+    public void testFindHistoricalByUid(){
+        Integer uid = 4;
+        List<Order> historicalByUid = service.findHistoricalByUid(uid);
+        String json = getJson(historicalByUid, true, MsgHouseUtils.errorMsg);
+        System.out.println(json);
+
+    }
+
+
+
+    public String getJson(Object obj,boolean flag,String errorMsg){
+        if (obj != null){
+            if (flag)
+                info = ServletUtils.getInfo(true,obj,"");
+            else
+                info = ServletUtils.getInfo(true,null,"");
+            json = ServletUtils.getJsonInfo(info);
+        }else {
+            info = info = ServletUtils.getInfo(false,null,errorMsg);
+            json = ServletUtils.getJsonInfo(info);
+        }
+        return json;
 
     }
 }

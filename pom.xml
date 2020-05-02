@@ -123,10 +123,16 @@
       <version>4.12</version>
       <scope>compile</scope>
     </dependency>
+    <!--mybatis-->
     <dependency>
       <groupId>org.mybatis</groupId>
       <artifactId>mybatis</artifactId>
       <version>3.4.5</version>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.17</version>
     </dependency>
 
   </dependencies>
