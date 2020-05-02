@@ -65,7 +65,23 @@ public interface UserMapper {
      * @param user
      * @return
      */
-    boolean changeUserInfo(User user);
+    Boolean changeUserInfo(@Param("user") User user);
+
+    /**
+     * 修改订单数据
+     * @param user
+     * @return
+     */
+    Boolean changeOrderInfo(@Param("user") User user);
+
+    /**
+     * 查询用户信息
+     * @param user
+     * @return
+     */
+    User findUserById(@Param("user") User user);
+
+
 
 
 }

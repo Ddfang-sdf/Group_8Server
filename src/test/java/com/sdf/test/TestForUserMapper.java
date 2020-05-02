@@ -124,6 +124,30 @@ public class TestForUserMapper {
         System.out.println(json);
     }
 
+    @Test
+    public void testSaveUserInfo() throws InvocationTargetException, IllegalAccessException {
+        User _user = new User();
+        Map<String, String> map = new HashMap<>();
+        map.put("uid","6");
+        map.put("username", "李莫愁");
+        map.put("address", "上海虹桥机场");
+        map.put("gender", "女");
+        map.put("age", "17");
+        map.put("identify", "273747596018273645");
+
+        //System.out.println(map);
+        BeanUtils.populate(_user, map);
+
+        User user = service.saveUserInfo(_user);
+        if (user != null){
+            info = ServletUtils.getInfo(true,user,"");
+            json = ServletUtils.getJsonInfo(info);
+        }else {
+            info = ServletUtils.getInfo(false,null,MsgHouseUtils.UserInfoErrorMsg);
+            json = ServletUtils.getJsonInfo(info);
+        }
+        System.out.println(json);
+    }
 
 
 

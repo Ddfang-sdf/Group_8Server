@@ -76,22 +76,7 @@
         </where>
     </select>
 
-    <!-- this.uid = uid;
-        this.sender_address = sender_address;
-        this.sender_name = sender_name;
-        this.sender_phone = sender_phone;
-        this.receiver_address = receiver_address;
-        this.receiver_name = receiver_name;
-        this.receiver_phone = receiver_phone;
-        this.order_id = order_id;
-        this.sign_for = sign_for;
-        this.sign_date = sign_date;
-        this.weight = weight;
-        this.type = type;
-        this.real_time_address = real_time_address;-->
     <!--boolean mailingByUid(Order order);-->
-
-
    <insert id="mailingByUid">
        insert into `order` values
        (#{order.uid}, #{order.sender_address}, #{order.sender_name},
@@ -101,9 +86,40 @@
        )
    </insert>
 
-    <!-- boolean changeUserInfo(User user);-->
+    <!--Boolean changeUserInfo(@Param("user") User user);-->
     <update id="changeUserInfo">
-        update `user` set
+        update `user`
+        <set>
+            username = #{user.username},
+            address = #{user.address},
+            gender = #{user.gender},
+            age = #{user.age},
+            identify = #{user.identify}
+        </set>
+        <where>
+            uid = #{user.uid}
+        </where>
     </update>
+
+    <!--Boolean changeOrderInfo(@Param("user") User user);-->
+    <update id="changeOrderInfo">
+        update `order`
+        <set>
+            sender_name = #{user.username},
+            sender_address = #{user.address}
+        </set>
+        <where>
+            uid = #{user.uid}
+        </where>
+    </update>
+
+    <!--User findUserById(@Param("user") User user);-->
+    <select id="findUserById" resultMap="user">
+        select * from user
+        <where>
+            uid = #{user.uid}
+        </where>
+    </select>
+
 
 </mapper>

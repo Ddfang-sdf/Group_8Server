@@ -4,6 +4,7 @@ import com.sdf.dao.UserMapper;
 import com.sdf.domain.HistoricalOrder;
 import com.sdf.domain.Order;
 import com.sdf.domain.User;
+import com.sdf.domain.exceptions.MyExcetion1;
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -136,6 +137,39 @@ public class UserMapperService {
 //            throw new RuntimeException("寄件功能异常");
         }
         return flag;
+    }
+
+    public User saveUserInfo(User user){
+        init();
+        User userById = null;
+        try {
+            //更新user表
+            if(!userMapper.changeUserInfo(user)){
+                session.rollback();
+                throw new MyExcetion1("更新用户表失败");
+            }
+            //更新order表
+            if (!userMapper.changeOrderInfo(user)){
+                session.rollback();
+                throw new MyExcetion1("更新订单表失败");
+            }
+
+            //查询用户
+             userById = userMapper.findUserById(user);
+
+
+        }catch (Exception | MyExcetion1 e){
+
+            session.rollback();
+            e.printStackTrace();
+            return userById;
+
+        }finally {
+            destroy();
+        }
+
+
+        return userById;
     }
 
 
