@@ -46,6 +46,12 @@ public interface UserMapper {
      */
     List<Order> findOrdersByList(@Param("hises")List<HistoricalOrder> historicalOrders);
 
+    /**
+     * 寄件
+     * @param order
+     * @return
+     */
+    boolean mailingByUid(@Param("order") Order order);
 
 
 }
