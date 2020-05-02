@@ -57,7 +57,7 @@ public class UserMapperService {
      * @param _user
      * @return
      */
-    public User testUserLogin(User _user) {
+    public User userLogin(User _user) {
 
         init();
         try {

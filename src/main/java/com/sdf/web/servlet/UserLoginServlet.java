@@ -2,6 +2,7 @@ package com.sdf.web.servlet;
 
 import com.sdf.domain.ResultInfo;
 import com.sdf.domain.User;
+import com.sdf.service.UserMapperService;
 import com.sdf.service.UserService;
 import com.sdf.service.impl.UserServiceImpl;
 import com.sdf.utils.MsgHouseUtils;
@@ -25,8 +26,9 @@ public class UserLoginServlet extends HttpServlet {
 //        request.setCharacterEncoding("utf-8");
 //        response.setContentType("text/html;charset=utf-8");
 
-        //创建业务层对象
-        UserService userService = new UserServiceImpl();
+//        //创建业务层对象
+//        UserService userService = new UserServiceImpl();
+        UserMapperService service = new UserMapperService();
         //创建结果集对象
         ResultInfo res = null;
         //创建响应数据
@@ -43,7 +45,7 @@ public class UserLoginServlet extends HttpServlet {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
-        User user = userService.userLogin(loginUser);
+        User user = service.userLogin(loginUser);
         if(user != null){
             //登陆成功，不需要给ErrorMsg ---- by sdf
             res = ServletUtils.getInfo(true,user,"");

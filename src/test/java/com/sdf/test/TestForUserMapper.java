@@ -1,6 +1,5 @@
 package com.sdf.test;
 
-import com.sdf.dao.UserMapper;
 import com.sdf.domain.Order;
 import com.sdf.domain.ResultInfo;
 import com.sdf.domain.User;
@@ -72,7 +71,7 @@ public class TestForUserMapper {
         map.put("username", username);
         map.put("passwd", passwd);
         BeanUtils.populate(_user, map);
-        User user = service.testUserLogin(_user);
+        User user = service.userLogin(_user);
         if (user != null) {
             info = ServletUtils.getInfo(true,user,"");
             json = ServletUtils.getJsonInfo(info);
