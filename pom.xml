@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>cn.itcast</groupId>
-  <artifactId>travel</artifactId>
+  <groupId>com.sdf</groupId>
+  <artifactId>Group8_server</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
   <dependencies>
@@ -32,12 +32,7 @@
     </dependency>
 
 
-    <!--druid连接池-->
-    <dependency>
-      <groupId>com.alibaba</groupId>
-      <artifactId>druid</artifactId>
-      <version>1.0.9</version>
-    </dependency>
+
     <!--jdbcTemplate-->
     <dependency>
       <groupId>org.springframework</groupId>
@@ -94,17 +89,7 @@
     </dependency>
 
 
-    <!--javaMail-->
-    <dependency>
-      <groupId>javax.mail</groupId>
-      <artifactId>javax.mail-api</artifactId>
-      <version>1.5.6</version>
-    </dependency>
-    <dependency>
-      <groupId>com.sun.mail</groupId>
-      <artifactId>javax.mail</artifactId>
-      <version>1.5.3</version>
-    </dependency>
+
     <!--jedis-->
     <dependency>
       <groupId>redis.clients</groupId>

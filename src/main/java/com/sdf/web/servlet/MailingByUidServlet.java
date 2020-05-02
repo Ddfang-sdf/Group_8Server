@@ -2,9 +2,7 @@ package com.sdf.web.servlet;
 
 import com.sdf.domain.Order;
 import com.sdf.domain.ResultInfo;
-import com.sdf.domain.User;
-import com.sdf.service.UserService;
-import com.sdf.service.impl.UserServiceImpl;
+import com.sdf.service.UserMapperService;
 import com.sdf.utils.MsgHouseUtils;
 import com.sdf.utils.ServletUtils;
 import org.apache.commons.beanutils.BeanUtils;
@@ -24,7 +22,7 @@ public class MailingByUidServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         //创建业务层对象
-        UserService userService = new UserServiceImpl();
+        UserMapperService service = new UserMapperService();
         //创建结果集对象
         ResultInfo res = null;
         //创建响应数据
@@ -42,7 +40,7 @@ public class MailingByUidServlet extends HttpServlet {
             e.printStackTrace();
         }
         //寄件
-        if(!userService.mailingByUid(newOrder)){
+        if(!service.mailingByUid(newOrder)){
             res = ServletUtils.getInfo(false,null,MsgHouseUtils.sendExpressErrorMsg);
             json = ServletUtils.getJsonInfo(res);
             response.getWriter().write(json);

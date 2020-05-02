@@ -1,11 +1,9 @@
 package com.sdf.service.impl;
 
-import com.sdf.dao.UserDao;
 import com.sdf.dao.impl.UserDaoImpl;
 import com.sdf.domain.Order;
 import com.sdf.domain.Scanner;
 import com.sdf.domain.User;
-import com.sdf.service.UserService;
 
 import java.util.List;
 

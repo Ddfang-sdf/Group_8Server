@@ -2,8 +2,7 @@ package com.sdf.web.servlet;
 
 import com.sdf.domain.ResultInfo;
 import com.sdf.domain.User;
-import com.sdf.service.UserService;
-import com.sdf.service.impl.UserServiceImpl;
+import com.sdf.service.UserMapperService;
 import com.sdf.utils.MsgHouseUtils;
 import com.sdf.utils.ServletUtils;
 import org.apache.commons.beanutils.BeanUtils;
@@ -28,7 +27,7 @@ public class UserRegistServlet extends HttpServlet {
 
 
         //创建业务层对象
-        UserService userService = new UserServiceImpl();
+        UserMapperService service = new UserMapperService();
         //创建结果集对象
         ResultInfo res = null;
         //创建响应数据
@@ -46,7 +45,7 @@ public class UserRegistServlet extends HttpServlet {
             e.printStackTrace();
         }
         //注册
-        if(userService.UserRegist(registUser)){
+        if(service.userRegist(registUser)){
             //注册成功，不需要给ErrorMsg ---- by sdf
             res = ServletUtils.getInfo(true,registUser,"");
             json = ServletUtils.getJsonInfo(res);

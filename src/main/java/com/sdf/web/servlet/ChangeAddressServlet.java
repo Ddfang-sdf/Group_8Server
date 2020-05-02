@@ -2,8 +2,6 @@ package com.sdf.web.servlet;
 
 import com.sdf.domain.ResultInfo;
 import com.sdf.service.ScannerMapperService;
-import com.sdf.service.UserService;
-import com.sdf.service.impl.UserServiceImpl;
 import com.sdf.utils.MsgHouseUtils;
 import com.sdf.utils.ServletUtils;
 

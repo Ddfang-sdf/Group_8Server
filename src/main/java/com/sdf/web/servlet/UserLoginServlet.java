@@ -3,8 +3,6 @@ package com.sdf.web.servlet;
 import com.sdf.domain.ResultInfo;
 import com.sdf.domain.User;
 import com.sdf.service.UserMapperService;
-import com.sdf.service.UserService;
-import com.sdf.service.impl.UserServiceImpl;
 import com.sdf.utils.MsgHouseUtils;
 import com.sdf.utils.ServletUtils;
 import org.apache.commons.beanutils.BeanUtils;
