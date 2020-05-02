@@ -13,6 +13,9 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.sql.SQLNonTransientException;
 import java.util.List;
 
 public class UserMapperService {
@@ -77,11 +80,17 @@ public class UserMapperService {
      */
     public Boolean userRegist(User user) {
         init();
+
         try {
-            return userMapper.userRegist(user);
-        } finally {
-            destroy();
+             return userMapper.userRegist(user);
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }finally {
+            destroy() ;
+
         }
+
     }
 
     /**

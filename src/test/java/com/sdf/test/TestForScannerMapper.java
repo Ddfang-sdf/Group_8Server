@@ -32,7 +32,7 @@ public class TestForScannerMapper {
     @Test
     public void testRealAddressUpdate(){
         String real_time_address = "北京市王府井";
-        String order_id = "37203685477581";
+        String order_id = "372036854775811";
         if(service.realAddressUpdate(real_time_address, order_id)){
             info = ServletUtils.getInfo(true,null,"");
             json = ServletUtils.getJsonInfo(info);
