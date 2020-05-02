@@ -2,6 +2,7 @@ package com.sdf.web.servlet;
 
 import com.sdf.domain.ResultInfo;
 import com.sdf.domain.User;
+import com.sdf.service.UserMapperService;
 import com.sdf.service.UserService;
 import com.sdf.service.impl.UserServiceImpl;
 import com.sdf.utils.MsgHouseUtils;
@@ -23,13 +24,14 @@ import java.util.Map;
 public class SaveInfoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        //这里不要设置，我写了一个过滤器了，而且要给客户端发送的是json数据，响应编码格式应该是application/json;charset=utf-8 ----by sdf
-//        request.setCharacterEncoding("utf-8");
-//        response.setContentType("text/html;charset=utf-8");
-
+        /*
+         * 修改用户信息的时候需要响应新的用户数据，但是一开始我写的底层返回的是Boolean。
+         * 此处修改为从底层查询。
+         *      ---- by sdf
+         */
 
         //创建业务层对象
-        UserService userService = new UserServiceImpl();
+        UserMapperService service = new UserMapperService();
         //创建结果集对象
         ResultInfo res = null;
         //创建响应数据
@@ -45,10 +47,11 @@ public class SaveInfoServlet extends HttpServlet {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
+        User userInfo = service.saveUserInfo(user);
         //修改
-        if(userService.changeUserInfo(user)){
+        if(userInfo != null){
             //修改成功，不需要给ErrorMsg ---- by sdf
-            res = ServletUtils.getInfo(true,user,"");
+            res = ServletUtils.getInfo(true,userInfo,"");
             json = ServletUtils.getJsonInfo(res);
             response.getWriter().write(json);
         }else{
