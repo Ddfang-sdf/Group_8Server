@@ -1,6 +1,7 @@
 package com.sdf.web.servlet;
 
 import com.sdf.domain.ResultInfo;
+import com.sdf.service.ScannerMapperService;
 import com.sdf.service.UserService;
 import com.sdf.service.impl.UserServiceImpl;
 import com.sdf.utils.MsgHouseUtils;
@@ -21,10 +22,9 @@ public class ChangeAddressServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        //设置响应编码格式
-        resp.setContentType("application/json;charset=utf-8");
+
         //创建业务层对象
-        UserService service = new UserServiceImpl();
+        ScannerMapperService service = new ScannerMapperService();
         //创建结果集对象
         ResultInfo info = null;
         //响应数据

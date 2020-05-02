@@ -2,6 +2,7 @@ package com.sdf.web.servlet;
 
 import com.sdf.domain.ResultInfo;
 import com.sdf.domain.Scanner;
+import com.sdf.service.ScannerMapperService;
 import com.sdf.service.UserService;
 import com.sdf.service.impl.UserServiceImpl;
 import com.sdf.utils.ServletUtils;
@@ -25,12 +26,11 @@ public class ScannerLoginServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        //设置相应编码格式
-        resp.setContentType("application/json;charset=utf-8");
+
         //获取扫描员用户名密码
         Map<String, String[]> map = req.getParameterMap();
         //创建业务层对象
-        UserService service = new UserServiceImpl();
+        ScannerMapperService service = new ScannerMapperService();
         //创建结果集对象
         ResultInfo info = null;
         //创建响应json
@@ -44,7 +44,7 @@ public class ScannerLoginServlet extends HttpServlet {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
-        Scanner scannerLogin = service.ScannerLogin(scanner);
+        Scanner scannerLogin = service.findForLogin(scanner);
         if (scannerLogin == null){
             //底层查询结果位null，则登录失败
             info = ServletUtils.getInfo(false,null, MsgHouseUtils.loginErrorMsg);
