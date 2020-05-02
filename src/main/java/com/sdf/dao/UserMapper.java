@@ -53,5 +53,19 @@ public interface UserMapper {
      */
     boolean mailingByUid(@Param("order") Order order);
 
+/*    *//**
+     * 修改个人信息数据回显
+     * @param uid
+     * @return
+     *//*
+    User findUserByUid(String uid);*/
+
+    /**
+     * 修改个人信息
+     * @param user
+     * @return
+     */
+    boolean changeUserInfo(User user);
+
 
 }

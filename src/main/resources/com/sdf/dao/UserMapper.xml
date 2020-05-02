@@ -101,5 +101,9 @@
        )
    </insert>
 
+    <!-- boolean changeUserInfo(User user);-->
+    <update id="changeUserInfo">
+        update `user` set
+    </update>
 
 </mapper>

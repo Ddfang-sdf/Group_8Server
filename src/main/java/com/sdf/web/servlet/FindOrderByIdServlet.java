@@ -30,6 +30,32 @@ public class FindOrderByIdServlet extends HttpServlet {
         String json = null;
         //获取请求参数
         String order_id = request.getParameter("order_id");
+        /*
+        *
+        * 这个地方应该做一个校验，所有获取用户数据的地方都要有一个后台校验的过程。
+        * 数据库中的订单从372036854775807开始自增。
+        * 有些数据不可以简单的获取一下就没有后续了，如果前台校验有bug，后台也没有校验的话，整个功能就存在bug。
+        * 后台校验需要你稍微看一下数据库，知道每一个数据的约束，数据类型。然后再在servlet中校验。
+        *
+        * ----by sdf
+        */
+        try{
+            int orderId = Integer.parseInt(order_id);
+            if (orderId < 372036854775807l){
+                res = ServletUtils.getInfo(false,null,MsgHouseUtils.orderNullErrorMsg);
+                json = ServletUtils.getJsonInfo(res);
+                response.getWriter().write(json);
+                return;
+            }
+        }catch (ClassCastException e){
+
+            res = ServletUtils.getInfo(false,null,MsgHouseUtils.orderNullErrorMsg);
+            json = ServletUtils.getJsonInfo(res);
+            response.getWriter().write(json);
+            e.printStackTrace();
+            return;
+        }
+
         //查询订单
         Order orderById = userService.findOrderById(order_id);
 
