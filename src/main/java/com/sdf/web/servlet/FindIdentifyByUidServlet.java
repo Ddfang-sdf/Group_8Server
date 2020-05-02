@@ -1,12 +1,11 @@
 package com.sdf.web.servlet;
 
+import com.sdf.domain.Order;
 import com.sdf.domain.ResultInfo;
-import com.sdf.domain.User;
 import com.sdf.service.UserService;
 import com.sdf.service.impl.UserServiceImpl;
 import com.sdf.utils.MsgHouseUtils;
 import com.sdf.utils.ServletUtils;
-import org.apache.commons.beanutils.BeanUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,11 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Map;
 
-@WebServlet("/changeIdentifyServlet")
-public class ChangeIdentifyServlet extends HttpServlet {
+@WebServlet("/findIdentifyByUidServlet")
+public class FindIdentifyByUidServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         //创建业务层对象
@@ -27,15 +24,13 @@ public class ChangeIdentifyServlet extends HttpServlet {
         ResultInfo res = null;
         //创建响应数据
         String json = null;
-        //创建用户对象
-        User user = new User();
         //获取请求参数
         String uid = request.getParameter("uid");
-        String identify = request.getParameter("identify");
+        //查询订单
+        String identify = userService.findIdentifyByUid(uid);
 
-        //修改
-        if(!userService.changeIdentify(uid,identify)){
-            res = ServletUtils.getInfo(false,null,MsgHouseUtils.changeErrorMsg);
+        if(identify == null || identify.length() == 0){
+            res = ServletUtils.getInfo(false,null,MsgHouseUtils.IdentifyErrorMsg);
             json = ServletUtils.getJsonInfo(res);
             response.getWriter().write(json);
             return;
@@ -43,7 +38,6 @@ public class ChangeIdentifyServlet extends HttpServlet {
         res = ServletUtils.getInfo(true,identify,"");
         json = ServletUtils.getJsonInfo(res);
         response.getWriter().write(json);
-
 
     }
 
