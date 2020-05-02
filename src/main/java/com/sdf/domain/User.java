@@ -1,6 +1,8 @@
 package com.sdf.domain;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String uid;//用户id
     private String username;//用户名
     private String passwd;//用户密码

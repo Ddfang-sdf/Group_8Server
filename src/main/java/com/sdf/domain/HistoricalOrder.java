@@ -1,8 +1,9 @@
 package com.sdf.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class HistoricalOrder {
+public class HistoricalOrder implements Serializable {
     private Integer id;
     private Integer uid;
     private String order_id;

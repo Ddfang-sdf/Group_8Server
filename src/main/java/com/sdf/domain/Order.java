@@ -1,8 +1,9 @@
 package com.sdf.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Order {
+public class Order implements Serializable {
     private int uid;//用户id
     private String sender_address;//寄件人地址
     private String sender_name;//寄件人姓名

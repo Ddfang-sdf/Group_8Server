@@ -1,6 +1,8 @@
 package com.sdf.domain;
 
-public class ResultInfo {
+import java.io.Serializable;
+
+public class ResultInfo implements Serializable {
     private boolean flag;//响应是否成功的标识，true成功，fasle失败
     private Object data;//响应数据
     private String errorMsg;//报错信息

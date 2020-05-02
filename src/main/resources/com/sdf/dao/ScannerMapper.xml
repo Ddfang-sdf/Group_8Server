@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sdf.dao.ScannerMapper">
+    <!--Scanner findForLogin(Scanner scanner);-->
+    <resultMap id="scanner" type="com.sdf.domain.Scanner">
+        <id property="sid" column="sid"/>
+        <result property="s_username" column="s_username"/>
+        <result property="s_passwd" column="s_passwd"/>
+    </resultMap>
+    <select id="findForLogin" resultMap="scanner">
+        select * from scanner
+        <where>
+            s_username = #{scanner.s_username}
+            and
+            s_passwd = #{scanner.s_passwd}
+        </where>
+    </select>
+
+    <!--boolean realAddressUpdate(@Param("address") String real_time_address, @Param("order_id") String order_id);-->
+    <update id="realAddressUpdate">
+        update `order`
+        <set>
+            real_time_address = #{address}
+        </set>
+        <where>
+            order_id = #{order_id}
+        </where>
+    </update>
+
+    <!--    boolean signStatusChange(String order_id, String real_time_address);-->
+    <update id="signStatusChange">
+        update `order`
+        <set>
+            sign_for = 'Y',
+            sign_date = now(),
+            real_time_address = #{address}
+        </set>
+        <where>
+            order_id = #{order_id}
+        </where>
+    </update>
+</mapper>

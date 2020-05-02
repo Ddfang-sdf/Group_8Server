@@ -23,42 +23,7 @@ import java.util.Map;
 
 public class TestForUserMapper {
 
-    private InputStream config;
-    private SqlSessionFactory factory;
-    private SqlSession session;
 
-
-    //@Before
-    public void init(){
-        try {
-            config = Resources.getResourceAsStream("mybatis-config.xml");
-            factory = new SqlSessionFactoryBuilder().build(config);
-            session = factory.openSession();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-    //@After
-    public void destroy(){
-        try{
-            session.commit();
-        }catch (PersistenceException e){
-        }finally{
-            if(config != null){
-                try {
-                    config.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if(session != null){
-                session.close();
-            }
-        }
-    }
     private UserMapperService service = new UserMapperService();
     private ResultInfo info;
     private String json;
