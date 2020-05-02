@@ -27,7 +27,7 @@ public class TestForUserMapper {
     private InputStream config;
     private SqlSessionFactory factory;
     private SqlSession session;
-    private UserMapper userMapper;
+
 
     //@Before
     public void init(){
@@ -35,7 +35,7 @@ public class TestForUserMapper {
             config = Resources.getResourceAsStream("mybatis-config.xml");
             factory = new SqlSessionFactoryBuilder().build(config);
             session = factory.openSession();
-            userMapper = session.getMapper(UserMapper.class);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -69,8 +69,8 @@ public class TestForUserMapper {
         String username = "李莫愁";
         String passwd = "123456";
         Map<String, String> map = new HashMap<>();
-        map.put("username", "李莫愁");
-        map.put("passwd", "12356");
+        map.put("username", username);
+        map.put("passwd", passwd);
         BeanUtils.populate(_user, map);
         User user = service.testUserLogin(_user);
         if (user != null) {
@@ -126,25 +126,54 @@ public class TestForUserMapper {
     public void testFindHistoricalByUid(){
         Integer uid = 4;
         List<Order> historicalByUid = service.findHistoricalByUid(uid);
-        String json = getJson(historicalByUid, true, MsgHouseUtils.errorMsg);
+        if (historicalByUid != null || historicalByUid.size() != 0){
+            info = ServletUtils.getInfo(true,historicalByUid,"");
+            json = ServletUtils.getJsonInfo(info);
+        }else {
+            info = ServletUtils.getInfo(false,null,MsgHouseUtils.errorMsg);
+            json = ServletUtils.getJsonInfo(info);
+        }
         System.out.println(json);
 
     }
 
-
-
-    public String getJson(Object obj,boolean flag,String errorMsg){
-        if (obj != null){
-            if (flag)
-                info = ServletUtils.getInfo(true,obj,"");
-            else
-                info = ServletUtils.getInfo(true,null,"");
+    @Test
+    public void testMailingByUid(){
+        Order order = new Order();
+        order.setUid(6);
+        order.setSender_address("河南省开封市明伦小区仁和公寓3号楼811室");
+        order.setSender_name("李莫愁");
+        order.setSender_phone("13788239993");
+        order.setReceiver_address("河南省开封市金明校区华苑3号楼811室");
+        order.setReceiver_name("陆展元");
+        order.setReceiver_phone("13566668380");
+        order.setWeight(20);
+        order.setType("易碎品");
+        order.setReal_time_address("河南省开封市明伦小区仁和公寓3号楼811室");
+        if(service.mailingByUid(order)){
+            info = ServletUtils.getInfo(true,null,"");
             json = ServletUtils.getJsonInfo(info);
         }else {
-            info = info = ServletUtils.getInfo(false,null,errorMsg);
+            info = ServletUtils.getInfo(false,null,MsgHouseUtils.sendExpressErrorMsg);
             json = ServletUtils.getJsonInfo(info);
         }
-        return json;
-
+        System.out.println(json);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

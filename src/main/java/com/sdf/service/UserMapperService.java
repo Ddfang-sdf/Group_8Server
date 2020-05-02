@@ -119,5 +119,26 @@ public class UserMapperService {
         }
     }
 
+    /**
+     * 寄件
+     */
+    public boolean mailingByUid(Order order){
+        init();
+        boolean flag = false;
+        try{
+            flag = userMapper.mailingByUid(order);
+        }catch (Exception e){
+            session.rollback();
+            e.printStackTrace();
+
+        }finally {
+            destroy();
+//            throw new RuntimeException("寄件功能异常");
+        }
+        return flag;
+    }
+
+
+
 
 }
