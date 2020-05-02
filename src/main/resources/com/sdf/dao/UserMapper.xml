@@ -30,17 +30,68 @@
     </select>
 
     <!--boolean UserRegist(User user);-->
-    <!--private String uid;//用户id
-    private String username;//用户名
-    private String passwd;//用户密码
-    private String address;//用户收货地址
-    private String gender;//用户性别
-    private String age;//用户年龄
-    private String identify;//用户身份证
-    private String user_phone;//用户手机-->
+
     <insert id="userRegist">
         insert into user values
         (null,#{user.username},#{user.passwd},#{user.address},
         #{user.gender},#{user.age},#{user.identify},#{user.user_phone})
     </insert>
+    <!-- this.uid = uid;
+        this.sender_address = sender_address;
+        this.sender_name = sender_name;
+        this.sender_phone = sender_phone;
+        this.receiver_address = receiver_address;
+        this.receiver_name = receiver_name;
+        this.receiver_phone = receiver_phone;
+        this.order_id = order_id;
+        this.sign_for = sign_for;
+        this.sign_date = sign_date;
+        this.weight = weight;
+        this.type = type;
+        this.real_time_address = real_time_address;-->
+    <resultMap id="order" type="com.sdf.domain.Order">
+        <id column="uid" property="uid"/>
+        <result column="sender_address" property="sender_address"/>
+        <result column="sender_name" property="sender_name"/>
+        <result column="sender_phone" property="sender_phone"/>
+        <result column="receiver_address" property="receiver_address"/>
+        <result column="receiver_name" property="receiver_name"/>
+        <result column="receiver_phone" property="receiver_phone"/>
+        <result column="order_id" property="order_id"/>
+        <result column="sign_for" property="sign_for"/>
+        <result column="sign_date" property="sign_date"/>
+        <result column="weight" property="weight"/>
+        <result column="type" property="type"/>
+        <result column="real_time_address" property="real_time_address"/>
+    </resultMap>
+    <!--Order findOrderById(Integer id);-->
+    <select id="findOrderById" resultMap="order">
+        SELECT * FROM `order` WHERE order_id = #{order_id}
+    </select>
+
+    <resultMap id="hisOrder" type="com.sdf.domain.HistoricalOrder">
+        <id property="id" column="id"/>
+        <result property="uid" column="uid"/>
+        <result property="order_id" column="order_id"/>
+    </resultMap>
+    <!--List<HistoricalOrder> findHistoricalByUid(Integer uid);-->
+    <select id="findHistoricalByUid" resultMap="hisOrder">
+        select * from `historical_order`
+        <where>
+            uid = #{uid}
+        </where>
+    </select>
+
+
+    <!--List<Order> findOrdersByList(List<HistoricalOrder> historicalOrders);-->
+    <select id="findOrdersByList" resultMap="order">
+        select * from `order`
+        <where>
+
+            <foreach collection="hises"
+                     open="order_id in(" item="order" separator="," close=")">
+                #{order.order_id}
+            </foreach>
+        </where>
+    </select>
 </mapper>
