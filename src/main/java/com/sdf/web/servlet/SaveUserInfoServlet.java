@@ -19,15 +19,18 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 //修改个人信息Servlet
-@WebServlet("/saveInfoServlet")
+@WebServlet("/saveUserInfoServlet")
 public class SaveUserInfoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+//<<<<<<< Updated upstream:src/main/java/com/sdf/web/servlet/SaveUserInfoServlet.java
         /*
          * 修改用户信息的时候需要响应新的用户数据，但是一开始我写的底层返回的是Boolean。
          * 此处修改为从底层查询。
          *      ---- by sdf
          */
+//=======
+//>>>>>>> Stashed changes:src/main/java/com/sdf/web/servlet/SaveInfoServlet.java
 
         //创建业务层对象
         UserMapperService service = new UserMapperService();

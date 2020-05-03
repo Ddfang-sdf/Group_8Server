@@ -2,7 +2,12 @@ package com.sdf.web.servlet;
 
 import com.sdf.domain.Order;
 import com.sdf.domain.ResultInfo;
+//<<<<<<< Updated upstream
 import com.sdf.service.UserMapperService;
+//=======
+import com.sdf.domain.User;
+import com.sdf.service.UserMapperService;
+//>>>>>>> Stashed changes
 import com.sdf.utils.MsgHouseUtils;
 import com.sdf.utils.ServletUtils;
 import org.apache.commons.beanutils.BeanUtils;
@@ -22,7 +27,11 @@ public class MailingByUidServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         //创建业务层对象
+//<<<<<<< Updated upstream
         UserMapperService service = new UserMapperService();
+//=======
+        //UserMapperService userService = new UserMapperService();
+//>>>>>>> Stashed changes
         //创建结果集对象
         ResultInfo res = null;
         //创建响应数据
