@@ -21,7 +21,7 @@ import java.util.Map;
 public class UserLoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
+        request.setCharacterEncoding("utf-8");
 //      //创建业务层对象
         UserMapperService service = new UserMapperService();
         //创建结果集对象
@@ -32,7 +32,7 @@ public class UserLoginServlet extends HttpServlet {
         User loginUser = new User();
         //获取请求参数
         Map<String, String[]> map = request.getParameterMap();
-
+        System.out.println(request.getParameter("username"));
         try {
             BeanUtils.populate(loginUser,map);
         } catch (IllegalAccessException e) {
@@ -41,6 +41,7 @@ public class UserLoginServlet extends HttpServlet {
             e.printStackTrace();
         }
         User user = service.userLogin(loginUser);
+        System.out.println(user);
         if(user != null){
             //登陆成功，不需要给ErrorMsg ---- by sdf
             res = ServletUtils.getInfo(true,user,"");
