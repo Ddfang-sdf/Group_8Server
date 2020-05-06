@@ -15,13 +15,13 @@ public class EncodingFilter implements Filter {
     }
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
-
+        System.out.println("过滤器启动了！-------------------");
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
         req.setCharacterEncoding("utf-8");
         resp.setContentType("application/json;charset=utf-8");
         //放行
-        chain.doFilter(request, response);
+        chain.doFilter(req, resp);
     }
 
     public void init(FilterConfig config) throws ServletException {
