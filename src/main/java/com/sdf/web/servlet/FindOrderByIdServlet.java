@@ -45,7 +45,7 @@ public class FindOrderByIdServlet extends HttpServlet {
         * ----by sdf
         */
         try{
-            int orderId = Integer.parseInt(order_id);
+            Long orderId = Long.parseLong(order_id);
             if (orderId < 372036854775807l){
                 res = ServletUtils.getInfo(false,null,MsgHouseUtils.orderNullErrorMsg);
                 json = ServletUtils.getJsonInfo(res);
