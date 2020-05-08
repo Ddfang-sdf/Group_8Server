@@ -32,10 +32,7 @@ public class UserLoginServlet extends HttpServlet {
         User loginUser = new User();
         //获取请求参数
         Map<String, String[]> map = request.getParameterMap();
-//        String _username = request.getParameter("username");
-//        byte[] bytes = _username.getBytes("utf-8");
-//        String username = new String(bytes,"utf-8");
-//        System.out.println(username);
+
         try {
             BeanUtils.populate(loginUser,map);
         } catch (IllegalAccessException e) {
