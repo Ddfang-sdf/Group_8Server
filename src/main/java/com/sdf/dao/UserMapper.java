@@ -2,11 +2,11 @@ package com.sdf.dao;
 
 import com.sdf.domain.HistoricalOrder;
 import com.sdf.domain.Order;
-import com.sdf.domain.Scanner;
+
 import com.sdf.domain.User;
 import org.apache.ibatis.annotations.Param;
 
-import java.io.Serializable;
+
 import java.util.List;
 
 public interface UserMapper {

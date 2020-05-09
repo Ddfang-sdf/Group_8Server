@@ -7,15 +7,10 @@ import com.sdf.service.UserMapperService;
 import com.sdf.utils.MsgHouseUtils;
 import com.sdf.utils.ServletUtils;
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.ibatis.exceptions.PersistenceException;
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
 import org.junit.Test;
 
-import java.io.IOException;
-import java.io.InputStream;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;

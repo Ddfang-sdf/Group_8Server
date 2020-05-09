@@ -27,11 +27,8 @@ public class MailingByUidServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         //创建业务层对象
-//<<<<<<< Updated upstream
         UserMapperService service = new UserMapperService();
-//=======
-        //UserMapperService userService = new UserMapperService();
-//>>>>>>> Stashed changes
+
         //创建结果集对象
         ResultInfo res = null;
         //创建响应数据
