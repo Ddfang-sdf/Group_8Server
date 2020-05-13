@@ -33,7 +33,7 @@
 
 
 
-    <!--jdbcTemplate-->
+    <!--spring-->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
@@ -102,12 +102,7 @@
       <version>4.12</version>
       <scope>compile</scope>
     </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>compile</scope>
-    </dependency>
+
     <!--mybatis-->
     <dependency>
       <groupId>org.mybatis</groupId>
