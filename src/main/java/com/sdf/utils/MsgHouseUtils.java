@@ -16,4 +16,5 @@ public class MsgHouseUtils {
     public static final String sendExpressErrorMsg = "寄件失败，请稍后再试";
 
     public static final String UserInfoErrorMsg = "未检索到个人信息，请稍后再试";
+
 }
